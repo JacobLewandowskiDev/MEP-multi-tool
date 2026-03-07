@@ -1,5 +1,8 @@
 <script setup>
 import { ref } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
 
 // State for units: false = Imperial (IP), true = Metric (SI)
 const isMetric = ref(false);
@@ -13,12 +16,13 @@ const isMetric = ref(false);
     
     <div class="navbar__right">
       <div class="navbar__links">
-        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/">HOME</RouterLink>
+        <RouterLink to="/management">MANAGEMENT</RouterLink>
         <RouterLink to="/hvac">HVAC</RouterLink>
         <RouterLink to="/plbg">PLBG</RouterLink>
       </div>
 
-      <div class="unit-toggle">
+      <div class="unit-toggle" v-if="route.meta.showSpecialNav">
         <span :class="{ 'active-unit': !isMetric }">IP</span>
         
         <label class="switch">
@@ -59,12 +63,12 @@ const isMetric = ref(false);
 }
 
 .navbar__links .router-link-active {
-  border-bottom: 3px solid #3498db;
-  color: #3498db;
+  border-bottom: 3px solid var(--primary-color);
+  color: var(--primary-color);
 }
 
 .navbar__links a:hover {
-  color: #3498db;
+  color: var(--primary-color);
 }
 
 .navbar__right {
@@ -88,9 +92,9 @@ const isMetric = ref(false);
 }
 
 .unit-toggle span.active-unit {
-  color: #3498db !important;
+  color: var(--primary-color) !important;
   font-weight: bold;
-  text-shadow: 0 0 8px rgba(52, 152, 219, 0.5);
+  text-shadow: 0 0 8px rgba(236, 197, 22, 0.5);
 }
 
 .switch {
@@ -131,7 +135,7 @@ const isMetric = ref(false);
 }
 
 input:checked + .slider {
-  background-color: #3498db;
+  background-color: var(--primary-color);
 }
 
 input:checked + .slider:before {
