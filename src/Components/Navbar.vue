@@ -45,6 +45,7 @@ const isMetric = ref(false);
   background-color: #333;
   color: #fff;
   font-family: 'Electrolize', sans-serif;
+  z-index: 1000;
 }
 
 .navbar__logo h1 {

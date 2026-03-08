@@ -1,11 +1,13 @@
 <script>
+import DuctSizer from "@/Components/DuctSizer.vue";
 import Navbar from "@/Components/Navbar.vue";
 import Sidebar from "@/Components/Sidebar.vue";
 
 export default {
     components: {
         Navbar,
-        Sidebar
+        Sidebar,
+        DuctSizer
     }
 }
 </script>
@@ -17,8 +19,7 @@ export default {
             <Sidebar />
         </div>
         <div class="container__app">
-            <h1>Hello this is the HVAC page</h1>
-
+            <DuctSizer />
         </div>
     </div>
 </template>

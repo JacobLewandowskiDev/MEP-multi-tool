@@ -17,7 +17,7 @@ export default {
             <Sidebar />
         </div>
         <div class="container__app">
-            <h1>Hello this is the Plumbing page</h1>
+            <h1>Plumbing Page</h1>
 
         </div>
     </div>
