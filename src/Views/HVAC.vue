@@ -2,13 +2,31 @@
 import DuctSizer from "@/Components/DuctSizer.vue";
 import Navbar from "@/Components/Navbar.vue";
 import Sidebar from "@/Components/Sidebar.vue";
+import EspCalc from "@/Components/EspCalc.vue";
+import RefrSizer from "@/Components/RefrSizer.vue";
+import LoadCalc from "@/Components/LoadCalc.vue";
 
 export default {
     components: {
         Navbar,
         Sidebar,
-        DuctSizer
+        DuctSizer,
+        EspCalc,
+        RefrSizer,
+        LoadCalc
+    },
+
+    data() {
+        return {
+            activeTool: 'DuctSizer' 
+        }
+    },
+
+    methods: {
+    updateActiveTool(toolName) {
+      this.activeTool = toolName;
     }
+  }
 }
 </script>
 
@@ -16,10 +34,12 @@ export default {
     <Navbar />
     <div class="container">
         <div class="container__menu">
-            <Sidebar />
+            <Sidebar @tool-selected="updateActiveTool" />
         </div>
         <div class="container__app">
-            <DuctSizer />
+            <KeepAlive>
+                <component :is="activeTool" />
+            </KeepAlive>
         </div>
     </div>
 </template>

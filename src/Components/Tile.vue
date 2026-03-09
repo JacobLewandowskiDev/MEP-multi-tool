@@ -24,6 +24,11 @@ defineProps({
     padding: 0.5rem;
     text-align: center;
     width: 300px;
+    background-color: var(--background-color);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
 .card__title {
@@ -34,8 +39,9 @@ defineProps({
 .card__img {
     width: 100%;
     height: auto;
-    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
     opacity: 0.9;
+    border: 2px solid var(--border-color);
 }
 
 .card__description {

@@ -1,12 +1,34 @@
 <script>
 import Navbar from "@/Components/Navbar.vue";
 import Sidebar from "@/Components/Sidebar.vue";
+import PipeSizer from "@/Components/PipeSizer.vue";
+import PipeSPCalc from "@/Components/PipeSPCalc.vue";
+import DfuCalc from "@/Components/DfuCalc.vue";
+import DwhSizer from "@/Components/DwhSizer.vue";
+import RoofDrainSizer from "@/Components/RoofDrainSizer.vue";
 
 export default {
     components: {
         Navbar,
-        Sidebar
+        Sidebar,
+        PipeSizer,
+        PipeSPCalc,
+        DfuCalc,
+        DwhSizer,
+        RoofDrainSizer
+    },
+
+    data() {
+        return {
+            activeTool: 'PipeSizer' 
+        }
+    },
+
+    methods: {
+    updateActiveTool(toolName) {
+      this.activeTool = toolName;
     }
+  }
 }
 </script>
 
@@ -14,11 +36,12 @@ export default {
     <Navbar />
     <div class="container">
         <div class="container__menu">
-            <Sidebar />
+            <Sidebar @tool-selected="updateActiveTool" />
         </div>
         <div class="container__app">
-            <h1>Plumbing Page</h1>
-
+            <KeepAlive>
+                <component :is="activeTool" />
+            </KeepAlive>
         </div>
     </div>
 </template>
@@ -34,6 +57,7 @@ export default {
 
 .container__menu {
     height: 100%;
+    position: sticky;
 }
 
 .container__app {
