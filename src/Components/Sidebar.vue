@@ -1,13 +1,13 @@
 <script setup>
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
 
 const isExpanded = ref(true); 
 
-const isVisible = ref(!!route.meta.showSpecialNav);
-const title = ref(route.name ? route.name.toString() : 'Tools');
+const isVisible = computed(() => !!route.meta.showSpecialNav);
+const title = computed(() => route.meta.showSpecialNav || 'Tools');
 
 watch(
   () => route.path, 
@@ -39,14 +39,14 @@ const selectTool = (toolName) => {
         <h3>{{ title }} Tools</h3>
       </div>
       <hr>
-        <div v-if="route.path.includes('hvac')" class="content__toollist">
+        <div v-if="route.meta.showSpecialNav === 'HVAC'" class="content__toollist">
           <button @click="selectTool('LoadCalc')">Load Calculator</button>
           <button @click="selectTool('DuctSizer')">Duct Sizer</button>
           <button @click="selectTool('EspCalc')">ESP Calculator</button>
           <button @click="selectTool('RefrSizer')">Refrigerant Pipe Sizer</button>
         </div>
 
-        <div v-else-if="route.path.includes('plbg')" class="content__toollist">
+        <div v-else-if="route.meta.showSpecialNav === 'Plumbing'" class="content__toollist">
           <button @click="selectTool('PipeSizer')">Pipe Sizer</button>
           <button @click="selectTool('PipeSPCalc')">Pipe SP Calculator</button>
           <button @click="selectTool('DfuCalc')">WSFU/DFU Calculator</button>
@@ -60,15 +60,14 @@ const selectTool = (toolName) => {
 <style scoped>
 .sidebar {
   height: 100%;
-  background: var(--navbar-color);
+  background: var(--sidebar-color);
   color: white;
   transition: width 0.3s ease, transform 0.3s ease;
   width: 60px;
   position: sticky;
   top: 0;
   left: 0;
-  border-right: 2px solid var(--border-color);
-  border-bottom: 2px solid var(--border-color);
+  border-right: var(--tool-border);
 }
 
 .content {
@@ -77,6 +76,12 @@ const selectTool = (toolName) => {
   opacity: 0;
   transform: translateX(-20px);
   pointer-events: none;
+}
+
+hr {
+  height: 2px;
+  border: none;
+  background-color: #1e293b;
 }
 
 .content__intro {
@@ -99,6 +104,8 @@ const selectTool = (toolName) => {
 
 .sidebar.is-hidden {
   transform: translateX(-100%);
+  height: 0 !important;
+  overflow: hidden;
 }
 
 .sidebar.is-expanded .content {
@@ -137,13 +144,12 @@ const selectTool = (toolName) => {
   flex: 1;
   padding: 0.75rem;
   margin: 0.5rem;
-  background: var(--primary-color);
-  border: none;
-  color: white;
+  background: var(--sidebar-button-color);
+  color: #a9b6c9;
   cursor: pointer;
   font-size: 1rem;
   transition: ease-in-out 0.2s;
-  border: 2px solid var(--border-color);
+  border: var(--tool-border);
   border-radius: 4px;
   font-weight: bold;
 }

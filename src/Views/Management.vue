@@ -15,8 +15,7 @@ export default {
         <input type="text" placeholder="Username" />
         <input type="password" placeholder="Password" />
         <button type="submit">Login</button>
-    </form>
-    
+    </form> 
 </template>
 
 <style scoped>
@@ -28,7 +27,7 @@ export default {
     height: fit-content;
     padding: 2rem;
     border: 2px solid var(--border-color);
-    background-color: var(--background-color);
+    background-color: var(--tool-background-color);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 12px;
@@ -43,20 +42,25 @@ export default {
     margin-bottom: 1rem;
     padding: 0.5rem;
     width: 18rem;
-    border-color: var(--border-color);
+    background-color: var(--tool-input-color);
+    color: white;
+    border: none;
     border-radius: 6px;
     text-align: center;
     font-size: 1rem;
 }
 
+.login input::placeholder {
+    color: var(--tool-label-color);
+}
+
 .login input:focus {
     outline: none;
-    border-color: var(--border-color);
-    box-shadow: 0 0 5px var(--primary-color);
+    border: none;
 }
 
 .login button {
-    padding:1rem 2rem;
+    padding:.75rem 3rem;
     background-color: var(--primary-color);
     color: white;
     font-size: 1rem;

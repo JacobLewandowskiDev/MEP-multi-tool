@@ -34,7 +34,7 @@ export default {
     <Navbar />
     <div class="container">
         <div class="container__menu">
-            <Sidebar @tool-selected="updateActiveTool" />
+            <Sidebar :key="$route.path" @tool-selected="updateActiveTool" />
         </div>
         <div class="container__app">
             <KeepAlive>

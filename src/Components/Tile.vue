@@ -24,7 +24,7 @@ defineProps({
     padding: 0.5rem;
     text-align: center;
     width: 300px;
-    background-color: var(--background-color);
+    background-color: var(--tool-background-color);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 12px;
@@ -41,7 +41,7 @@ defineProps({
     height: auto;
     margin-bottom: 1.5rem;
     opacity: 0.9;
-    border: 2px solid var(--border-color);
+    border: var(--tool-border);
 }
 
 .card__description {

@@ -8,7 +8,7 @@
 
 html {
     font-family: 'Electrolize', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #000000;
+    background-color: #05070d;
     color: #fff;
     scroll-behavior: smooth;
 }
@@ -22,12 +22,19 @@ body {
 }
 
 :root {
-    --primary-color: #e4610f;
+    --primary-color: #f97316;
     --primary-color-hover: #e67128;
     --border-color: #a84c12bd;
-    --navbar-color: #333;
+    --navbar-color: #020617;
     --navbar-height: 60px;
-    --background-color: #fa701a7e;
+    --background-color: #333;
+    --sidebar-color: #05070d;
+    --sidebar-button-color: #0a0f1b;
+    --tool-background-color: #0a0f1b;
+    --tool-inner-container-color: #0f172a;
+    --tool-border: 2px solid #1e293b;
+    --tool-input-color: #1e293b;
+    --tool-label-color: #94a3b8;
 }
 
 nav {

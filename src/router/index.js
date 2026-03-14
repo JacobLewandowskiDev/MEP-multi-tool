@@ -16,18 +16,19 @@ const router = createRouter({
       path: '/hvac',
       name: 'HVAC',
       component: HVAC,
-      meta: { showSpecialNav: true }
+      meta: { showSpecialNav: 'HVAC' }
     },
     {
       path: '/plbg',
       name: 'Plumbing',
       component: PLBG,
-      meta: { showSpecialNav: true }
+      meta: { showSpecialNav: 'Plumbing' }
     },
      {
       path: '/management',
       name: 'Management',
-      component: Management
+      component: Management,
+      meta: { showSpecialNav: 'Management' }
     }
   ],
 })
