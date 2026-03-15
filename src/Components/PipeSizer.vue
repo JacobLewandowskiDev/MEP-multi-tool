@@ -52,8 +52,7 @@ const calculateSize = () => {
     <div class="grid-layout">
       <div class="card input-card">
         <div class="section-header">
-          <div class="dot violet"></div>
-          <span class="label">System Parameters</span>
+          <h2>Pipe Sizer</h2>
         </div>
 
         <div class="form-group">
@@ -88,7 +87,6 @@ const calculateSize = () => {
 
       <div class="card results-card">
         <div class="section-header">
-          <div class="dot gray"></div>
           <span class="label">Sizing Results</span>
         </div>
 
@@ -134,7 +132,7 @@ const calculateSize = () => {
 .sizer-container {
   max-width: 1000px;
   width: 90%;
-  color: white;
+  color: var(--primary-color);
 }
 
 .grid-layout {
@@ -144,8 +142,8 @@ const calculateSize = () => {
 }
 
 .card {
-  background: rgba(15, 23, 42, 0.5);
-  border: 1px solid #1e293b;
+  background: var(--tool-background-color);
+  border: var(--tool-border);
   border-radius: 12px;
   padding: 1.5rem;
   backdrop-filter: blur(10px);
@@ -158,58 +156,52 @@ const calculateSize = () => {
   margin-bottom: 1.5rem;
 }
 
-.dot { width: 8px; height: 8px; border-radius: 50%; }
-.violet { background: #8b5cf6; }
-.gray { background: #475569; }
-
 .label {
-  font-family: monospace;
   font-size: 0.75rem;
   text-transform: uppercase;
-  color: #94a3b8;
+  color: var(--primary-color);
 }
 
 .form-group { margin-bottom: 1.25rem; }
-.form-group label { display: block; font-size: 0.875rem; color: #cbd5e1; margin-bottom: 0.5rem; }
+.form-group label { display: block; font-size: 0.875rem; color: var(--tool-label-color); margin-bottom: 0.5rem; }
 
 .custom-select, input {
   width: 100%;
   height: 48px;
-  background: #1e293b;
-  border: 1px solid #334155;
+  background: var(--tool-input-color);
+  border: var(--tool-border);
   border-radius: 6px;
   color: white;
   padding: 0 1rem;
 }
 
 .input-wrapper { position: relative; }
-.unit { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: #64748b; font-size: 0.875rem; }
+.unit { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--tool-label-color); font-size: 0.875rem; }
 
 .calc-btn {
   width: 100%;
   height: 48px;
-  background: #8b5cf6;
+  background: var(--primary-color);
   border: none;
   border-radius: 6px;
-  color: white;
-  font-weight: 600;
+  font-weight: bold;
   cursor: pointer;
   transition: 0.2s;
 }
 
-.calc-btn:hover { background: #7c3aed; }
+.calc-btn:hover { background: var(--primary-color-hover); }
 
 /* Results Styling */
 .empty-state {
   text-align: center;
   padding: 3rem 0;
-  color: #64748b;
+  color: var(--tool-label-color);
 }
 
 .icon-circle {
-  width: 64px;
-  height: 64px;
-  background: #1e293b;
+  width: 3rem;
+  height: 3rem;
+  background: var(--tool-input-color);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -219,15 +211,15 @@ const calculateSize = () => {
 }
 
 .results-display { text-align: center; }
-.res-label { display: block; color: #94a3b8; font-size: 0.875rem; }
+.res-label { display: block; color: var(--tool-label-color); font-size: 0.875rem; }
 .res-value { font-size: 2rem; font-weight: bold; }
-.text-violet { color: #a78bfa; }
+.text-violet { color: var(--primary-color); }
 
 .result-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   margin-top: 2rem;
-  border-top: 1px solid #1e293b;
+  border-top: var(--tool-border);
   padding-top: 1.5rem;
 }
 
@@ -245,14 +237,15 @@ const calculateSize = () => {
 
 .quick-ref {
   margin-top: 1.5rem;
-  background: rgba(15, 23, 42, 0.3);
+  background: var(--tool-inner-container-color);
+  border: var(--tool-border);
   padding: 1rem;
   border-radius: 8px;
   font-size: 0.875rem;
   display: flex;
   gap: 1.5rem;
-  color: #94a3b8;
+  color: var(--tool-label-color);
 }
 
-.limits { margin-left: auto; color: #8b5cf6; }
+.limits { margin-left: auto; color: var(--primary-color); }
 </style>

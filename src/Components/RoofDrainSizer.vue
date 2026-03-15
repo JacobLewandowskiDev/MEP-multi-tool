@@ -1,3 +1,55 @@
+<script setup>
+import { ref, computed } from 'vue';
+
+const roofSize = ref(null);
+const selectedState = ref('');
+const selectedCity = ref('');
+
+// Simplified rainfall intensity data (Inches per Hour)
+const rainfallData = {
+  "New York": { "New York City": 3.0, "Albany": 2.5, "Buffalo": 2.2 },
+  "New Jersey": { "Newark": 3.1, "Atlantic City": 3.4, "Trenton": 3.2 },
+  "Texas": { "Houston": 4.6, "Dallas": 4.0, "Austin": 3.8 },
+  "California": { "Los Angeles": 2.0, "San Francisco": 1.5, "Sacramento": 1.8 },
+  "Florida": { "Miami": 4.7, "Orlando": 4.2, "Tampa": 4.5 }
+};
+
+// Drain capacities based on standard vertical leader tables (GPM)
+// Values are approximate for sizing guidance
+const drainCapacities = [
+  { size: 2, gpm: 23 },
+  { size: 3, gpm: 67 },
+  { size: 4, gpm: 144 },
+  { size: 5, gpm: 261 },
+  { size: 6, gpm: 424 }
+];
+
+const currentIntensity = computed(() => {
+  if (!selectedState.value || !selectedCity.value) return 0;
+  return rainfallData[selectedState.value][selectedCity.value];
+});
+
+const resultsReady = computed(() => {
+  return roofSize.value > 0 && currentIntensity.value > 0;
+});
+
+const calculatedDrains = computed(() => {
+  if (!resultsReady.value) return [];
+
+  // Formula: GPM = (Area * Intensity) / 96.23
+  const totalGpmReq = (roofSize.value * currentIntensity.value) / 96.23;
+
+  return drainCapacities.map(drain => {
+    const rawQty = totalGpmReq / drain.gpm;
+    return {
+      size: drain.size,
+      gpm: drain.gpm,
+      qty: Math.max(Math.ceil(rawQty), 1) // Logic allows 1, CSS highlights if < 2
+    };
+  });
+});
+</script>
+
 <template>
   <div class="mep-drain-container">
     <div class="header-section">
@@ -90,70 +142,17 @@
   </div>
 </template>
 
-<script setup>
-import { ref, computed } from 'vue';
-
-const roofSize = ref(null);
-const selectedState = ref('');
-const selectedCity = ref('');
-
-// Simplified rainfall intensity data (Inches per Hour)
-const rainfallData = {
-  "New York": { "New York City": 3.0, "Albany": 2.5, "Buffalo": 2.2 },
-  "New Jersey": { "Newark": 3.1, "Atlantic City": 3.4, "Trenton": 3.2 },
-  "Texas": { "Houston": 4.6, "Dallas": 4.0, "Austin": 3.8 },
-  "California": { "Los Angeles": 2.0, "San Francisco": 1.5, "Sacramento": 1.8 },
-  "Florida": { "Miami": 4.7, "Orlando": 4.2, "Tampa": 4.5 }
-};
-
-// Drain capacities based on standard vertical leader tables (GPM)
-// Values are approximate for sizing guidance
-const drainCapacities = [
-  { size: 2, gpm: 23 },
-  { size: 3, gpm: 67 },
-  { size: 4, gpm: 144 },
-  { size: 5, gpm: 261 },
-  { size: 6, gpm: 424 }
-];
-
-const currentIntensity = computed(() => {
-  if (!selectedState.value || !selectedCity.value) return 0;
-  return rainfallData[selectedState.value][selectedCity.value];
-});
-
-const resultsReady = computed(() => {
-  return roofSize.value > 0 && currentIntensity.value > 0;
-});
-
-const calculatedDrains = computed(() => {
-  if (!resultsReady.value) return [];
-
-  // Formula: GPM = (Area * Intensity) / 96.23
-  const totalGpmReq = (roofSize.value * currentIntensity.value) / 96.23;
-
-  return drainCapacities.map(drain => {
-    const rawQty = totalGpmReq / drain.gpm;
-    return {
-      size: drain.size,
-      gpm: drain.gpm,
-      qty: Math.max(Math.ceil(rawQty), 1) // Logic allows 1, CSS highlights if < 2
-    };
-  });
-});
-</script>
-
 <style scoped>
 .mep-drain-container {
-  background-color: #020617;
-  color: #f8fafc;
+  background-color: var(--tool-background-color);
+  color: var(--primary-color);
   padding: 1.5rem;
   border-radius: 0.75rem;
-  border: 1px solid #1e293b;
-  font-family: sans-serif;
+  border: var(--tool-border);
 }
 
-.header-section h2 { margin: 0 0 0.25rem 0; font-size: 1.5rem; color: #707373; }
-.header-section p { color: #94a3b8; margin: 0 0 2rem 0; font-size: 0.9rem; }
+.header-section h2 { margin: 0 0 0.25rem 0; font-size: 1.5rem; color: var(--primary-color); }
+.header-section p { color: var(--tool-label-color); margin: 0 0 2rem 0; font-size: 0.9rem; }
 
 .calculator-grid {
   display: grid;
@@ -167,22 +166,22 @@ const calculatedDrains = computed(() => {
 
 /* Sidebar */
 .sidebar-card {
-  background-color: #0f172a;
-  border: 1px solid #1e293b;
+  background-color: var(--tool-inner-container-color);
+  border: var(--tool-border);
   padding: 1.5rem;
   border-radius: 0.75rem;
 }
 
 .input-field { margin-bottom: 1.25rem; }
-.input-field label { display: block; font-size: 0.8rem; color: #94a3b8; margin-bottom: 0.5rem; }
+.input-field label { display: block; font-size: 0.8rem; color: var(--tool-label-color); margin-bottom: 0.5rem; }
 
 .input-wrapper { position: relative; }
-.unit-tag { position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%); font-size: 0.75rem; color: #64748b; }
+.unit-tag { position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%); font-size: 0.75rem; color: var(--tool-label-color); }
 
 .styled-input, .styled-select {
   width: 100%;
-  background-color: #1e293b;
-  border: 1px solid #334155;
+  background-color: var(--tool-input-color);
+  border: var(--tool-border);
   color: white;
   height: 42px;
   padding: 0 0.75rem;
@@ -191,12 +190,12 @@ const calculatedDrains = computed(() => {
 }
 
 .info-box {
-  background-color: rgba(112, 115, 115, 0.1);
-  border-left: 3px solid #707373;
+  background-color: var(--tool-input-color);
+  border-left: 3px solid var(--primary-color);
   padding: 0.75rem;
   margin-top: 1rem;
 }
-.info-box p { margin: 0; font-size: 0.75rem; color: #94a3b8; line-height: 1.4; }
+.info-box p { margin: 0; font-size: 0.75rem; color: var(--tool-label-color); line-height: 1.4; }
 
 /* Results */
 .empty-state {
@@ -205,16 +204,17 @@ const calculatedDrains = computed(() => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 2px dashed #1e293b;
+  border: 2px dashed var(--tool-border);
   border-radius: 0.75rem;
   padding: 3rem;
-  color: #475569;
+  color: var(--tool-label-color);
   text-align: center;
 }
 .icon-circle { font-size: 2.5rem; margin-bottom: 1rem; opacity: 0.3; }
 
 .intensity-banner {
-  background-color: #1e293b;
+  background-color: var(--tool-inner-container-color);
+  border: var(--tool-border);
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
   margin-bottom: 1rem;
@@ -224,29 +224,29 @@ const calculatedDrains = computed(() => {
 .drain-table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #0f172a;
+  background-color: var(--tool-inner-container-color);
   border-radius: 0.5rem;
   overflow: hidden;
 }
 
 .drain-table th {
-  background-color: #1e293b;
+  background-color: var(--tool-input-color);
   text-align: left;
   padding: 1rem;
   font-size: 0.8rem;
-  color: #94a3b8;
+  color: var(--tool-label-color);
   text-transform: uppercase;
 }
 
 .drain-table td {
   padding: 1rem;
-  border-bottom: 1px solid #1e293b;
+  border-bottom: var(--tool-border);
   font-size: 1rem;
 }
 
-.size-col { font-weight: bold; color: #707373; }
-.qty-col { font-weight: bold; color: #10b981; }
-.qty-col.warning { color: #f97316; }
+.size-col { font-weight: bold; color: var(--primary-color); }
+.qty-col { font-weight: bold; color: var(--primary-color); }
+.qty-col.warning { color: #ff0606; }
 
 .min-note {
   display: block;
@@ -257,7 +257,7 @@ const calculatedDrains = computed(() => {
 .pro-note {
   margin-top: 1.5rem;
   font-size: 0.75rem;
-  color: #475569;
+  color: var(--tool-label-color);
   font-style: italic;
 }
 </style>

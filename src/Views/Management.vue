@@ -26,12 +26,11 @@ export default {
     justify-content: center;
     height: fit-content;
     padding: 2rem;
-    border: 2px solid var(--border-color);
+    border: var(--tool-border);
     background-color: var(--tool-background-color);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 12px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
 .login h1 {
@@ -62,13 +61,12 @@ export default {
 .login button {
     padding:.75rem 3rem;
     background-color: var(--primary-color);
-    color: white;
     font-size: 1rem;
     font-weight: bold;
-    border: 2px solid var(--border-color);
     cursor: pointer;
     transition: 0.2s ease;
     border-radius: 8px;
+    border: none;
 }
 
 .login button:hover {

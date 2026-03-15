@@ -47,8 +47,8 @@ const selectTool = (toolName) => {
         </div>
 
         <div v-else-if="route.meta.showSpecialNav === 'Plumbing'" class="content__toollist">
-          <button @click="selectTool('PipeSizer')">Pipe Sizer</button>
           <button @click="selectTool('PipeSPCalc')">Pipe SP Calculator</button>
+          <button @click="selectTool('PipeSizer')">Pipe Sizer</button>
           <button @click="selectTool('DfuCalc')">WSFU/DFU Calculator</button>
           <button @click="selectTool('DwhSizer')">DHW Heater Sizer</button>
           <button @click="selectTool('RoofDrainSizer')">Roof Drain Sizer</button>
