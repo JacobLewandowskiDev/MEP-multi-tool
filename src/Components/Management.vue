@@ -1,26 +1,16 @@
 <script>
 import Navbar from "@/Components/Navbar.vue";
 import Sidebar from "@/Components/Sidebar.vue";
-import PipeSizer from "@/Components/PipeSizer.vue";
-import PipeSPCalc from "@/Components/PipeSPCalc.vue";
-import DfuCalc from "@/Components/DfuCalc.vue";
-import DwhSizer from "@/Components/DwhSizer.vue";
-import RoofDrainSizer from "@/Components/RoofDrainSizer.vue";
 
 export default {
     components: {
         Navbar,
-        Sidebar,
-        PipeSizer,
-        PipeSPCalc,
-        DfuCalc,
-        DwhSizer,
-        RoofDrainSizer
+        Sidebar
     },
 
     data() {
         return {
-            activeTool: 'PipeSizer' 
+            activeTool: 'DuctSizer' 
         }
     },
 
@@ -36,7 +26,7 @@ export default {
     <Navbar />
     <div class="container">
         <div class="container__menu">
-            <Sidebar :key="$route.path" @tool-selected="updateActiveTool" :title="'PLBG Tools'"/>
+            <Sidebar :key="$route.path" @tool-selected="updateActiveTool" :title="'Management Tools'"/>
         </div>
         <div class="container__app">
             <KeepAlive>

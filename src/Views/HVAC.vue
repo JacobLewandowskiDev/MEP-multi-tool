@@ -34,7 +34,7 @@ export default {
     <Navbar />
     <div class="container">
         <div class="container__menu">
-            <Sidebar :key="$route.path" @tool-selected="updateActiveTool" />
+            <Sidebar :key="$route.path" @tool-selected="updateActiveTool" :title="'HVAC Tools'"/>
         </div>
         <div class="container__app">
             <KeepAlive>

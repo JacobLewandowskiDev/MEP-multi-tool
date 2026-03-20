@@ -17,7 +17,7 @@ export default {
                  { 
                     cardTitle: "Management Tool", 
                     cardDescription: "Manage all of your teams projects.", 
-                    linkPath: "/management", 
+                    linkPath: "/login", 
                     cardImage: imgManagement 
                 },
                 { 
