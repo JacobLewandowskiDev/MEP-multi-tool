@@ -1,16 +1,18 @@
 <script>
 import Navbar from "@/Components/Navbar.vue";
 import Sidebar from "@/Components/Sidebar.vue";
+import Dashboard from "@/Components/Dashboard.vue";
 
 export default {
     components: {
         Navbar,
-        Sidebar
+        Sidebar,
+        Dashboard
     },
 
     data() {
         return {
-            activeTool: 'DuctSizer' 
+            activeTool: 'Dashboard' 
         }
     },
 

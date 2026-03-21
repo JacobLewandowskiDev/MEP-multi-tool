@@ -7,7 +7,6 @@ const route = useRoute();
 const isExpanded = ref(true); 
 
 const isVisible = computed(() => !!route.meta.showSpecialNav);
-// const title = computed(() => route.meta.showSpecialNav || 'Tools');
 
 watch(
   () => route.path, 
@@ -57,10 +56,10 @@ const selectTool = (toolName) => {
         </div>
 
         <div v-else-if="route.meta.showSpecialNav === 'Management'" class="content__toollist">
-          <button>Project Summary</button>
-          <button>Deadline Tracker</button>
-          <button>Team Manager</button>
-          <button>Dashboard</button>
+          <button @click="selectTool('ProjectSummary')">Project Summary</button>
+          <button @click="selectTool('Deadlines')">Deadline Tracker</button>
+          <button @click="selectTool('TeamManager')">Team Manager</button>
+          <button @click="selectTool('Dashboard')">Dashboard</button>
         </div>
     </div>
   </div>

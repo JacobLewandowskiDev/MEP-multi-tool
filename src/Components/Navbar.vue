@@ -22,7 +22,7 @@ const isMetric = ref(false);
         <RouterLink to="/plbg">PLBG</RouterLink>
       </div>
 
-      <div class="unit-toggle" v-if="route.meta.showSpecialNav">
+      <div class="unit-toggle" v-if="route.meta.showUnitToggle">
         <span :class="{ 'active-unit': !isMetric }">IP</span>
         
         <label class="switch">
@@ -42,7 +42,7 @@ const isMetric = ref(false);
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: var(--navbar-color);
+  background-color: var(--tool-inner-container-color);
   border-bottom: var(--tool-border);
   color: #fff;
   font-family: 'Electrolize', sans-serif;

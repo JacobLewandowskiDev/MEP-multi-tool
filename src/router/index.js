@@ -17,13 +17,13 @@ const router = createRouter({
       path: '/hvac',
       name: 'HVAC',
       component: HVAC,
-      meta: { showSpecialNav: 'HVAC' }
+      meta: { showSpecialNav: 'HVAC', showUnitToggle: true }
     },
     {
       path: '/plbg',
       name: 'Plumbing',
       component: PLBG,
-      meta: { showSpecialNav: 'Plumbing' }
+      meta: { showSpecialNav: 'Plumbing', showUnitToggle: true }
     },
     {
       path: '/login',
