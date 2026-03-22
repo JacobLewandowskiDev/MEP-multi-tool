@@ -2,12 +2,14 @@
 import Navbar from "@/Components/Navbar.vue";
 import Sidebar from "@/Components/Sidebar.vue";
 import Dashboard from "@/Components/Dashboard.vue";
+import ProjectSummary from "@/Components/ProjectSummary.vue";
 
 export default {
     components: {
         Navbar,
         Sidebar,
-        Dashboard
+        Dashboard,
+        ProjectSummary,
     },
 
     data() {

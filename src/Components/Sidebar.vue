@@ -48,18 +48,18 @@ const selectTool = (toolName) => {
         </div>
 
         <div v-else-if="route.meta.showSpecialNav === 'Plumbing'" class="content__toollist">
-          <button @click="selectTool('PipeSPCalc')">Pipe SP Calculator</button>
           <button @click="selectTool('PipeSizer')">Pipe Sizer</button>
+          <button @click="selectTool('PipeSPCalc')">Pipe SP Calculator</button>
           <button @click="selectTool('DfuCalc')">WSFU/DFU Calculator</button>
           <button @click="selectTool('DwhSizer')">DHW Heater Sizer</button>
           <button @click="selectTool('RoofDrainSizer')">Roof Drain Sizer</button>
         </div>
 
         <div v-else-if="route.meta.showSpecialNav === 'Management'" class="content__toollist">
-          <button @click="selectTool('ProjectSummary')">Project Summary</button>
-          <button @click="selectTool('Deadlines')">Deadline Tracker</button>
-          <button @click="selectTool('TeamManager')">Team Manager</button>
           <button @click="selectTool('Dashboard')">Dashboard</button>
+          <button @click="selectTool('ProjectSummary')">Project Summary</button>
+          <button @click="selectTool('TeamManager')">Team Manager</button>
+          <button @click="selectTool('Logout')">Logout</button>
         </div>
     </div>
   </div>

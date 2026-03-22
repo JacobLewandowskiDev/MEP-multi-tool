@@ -1,11 +1,11 @@
 <script>
 import Navbar from "@/Components/Navbar.vue";
 import Sidebar from "@/Components/Sidebar.vue";
-import PipeSizer from "@/Components/PipeSizer.vue";
-import PipeSPCalc from "@/Components/PipeSPCalc.vue";
-import DfuCalc from "@/Components/DfuCalc.vue";
-import DwhSizer from "@/Components/DwhSizer.vue";
-import RoofDrainSizer from "@/Components/RoofDrainSizer.vue";
+import PipeSizer from "@/Components/plbgTools/PipeSizer.vue";
+import PipeSPCalc from "@/Components/plbgTools/PipeSPCalc.vue";
+import DfuCalc from "@/Components/plbgTools/DfuCalc.vue";
+import DwhSizer from "@/Components/plbgTools/DwhSizer.vue";
+import RoofDrainSizer from "@/Components/plbgTools/RoofDrainSizer.vue";
 
 export default {
     components: {

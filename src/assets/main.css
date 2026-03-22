@@ -13,6 +13,24 @@ html {
     scroll-behavior: smooth;
 }
 
+html::-webkit-scrollbar {
+    width: .5rem;
+}
+
+html::-webkit-scrollbar-track {
+    background: transparent; 
+}
+
+html::-webkit-scrollbar-thumb {
+    background-color: var(--tool-label-color); 
+    border-radius: 10px;
+    border: 2px solid var(--tool-background-color); 
+}
+
+html::-webkit-scrollbar-thumb:hover {
+    filter: brightness(0.8);
+}
+
 body {
     height: 100vh;
     width: 100vw;
@@ -47,4 +65,34 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+[data-tip] {
+    position: relative;
+    cursor: help;
+    display: inline-block;
+}
+
+[data-tip]::before {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: 50%;
+    right: 130%; 
+    transform: translateY(50%);
+    background-color: var(--tool-label-color);
+    color: #000000;
+    padding: .5rem;
+    border-radius: .5rem;
+    font-size: 0.75rem;
+    font-weight: bold;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease-in-out;
+}
+
+[data-tip]:hover::before {
+    opacity: 1;
+    visibility: visible;
 }

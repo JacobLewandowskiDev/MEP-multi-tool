@@ -1,10 +1,10 @@
 <script>
-import DuctSizer from "@/Components/DuctSizer.vue";
+import DuctSizer from "@/Components/hvacTools/DuctSizer.vue";
 import Navbar from "@/Components/Navbar.vue";
 import Sidebar from "@/Components/Sidebar.vue";
-import EspCalc from "@/Components/EspCalc.vue";
-import RefrSizer from "@/Components/RefrSizer.vue";
-import LoadCalc from "@/Components/LoadCalc.vue";
+import EspCalc from "@/Components/hvacTools/EspCalc.vue";
+import RefrSizer from "@/Components/hvacTools/RefrSizer.vue";
+import LoadCalc from "@/Components/hvacTools/LoadCalc.vue";
 
 export default {
     components: {

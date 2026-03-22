@@ -1,5 +1,6 @@
 <script setup>
-import TeamList from './dashboard tools/TeamList.vue';
+import TeamList from './dashboardTools/TeamList.vue';
+import TeamOverview from './dashboardTools/TeamOverview.vue';
 
 </script>
 
@@ -7,17 +8,19 @@ import TeamList from './dashboard tools/TeamList.vue';
     <div class="dashboard">
         <div class="dashboard__tool dashboard__tool--full">
             <h2>Workload and Team Summary</h2>
+            <br>
+            <TeamOverview />
         </div>
         <!-- This will show the number of all projects, active projects, on hold projects, and a number of upcoming deadlines, upcoming employee PTO-->
-        <div class="dashboard__tool">Team List
+        <div class="dashboard__tool"><h3>Team List</h3>
             <div class="teamList__labels">
                 <span>Name</span>
                 <span>Workload</span>
             </div>
             <TeamList />
         </div> 
-        <div class="dashboard__tool">Upcoming Deadlines</div>
-        <div class="dashboard__tool">Placeholder</div>
+        <div class="dashboard__tool"><h3>Upcoming Deadlines</h3></div>
+        <div class="dashboard__tool"><h3>Placeholder</h3></div>
     </div>
 </template>
 
@@ -47,8 +50,16 @@ import TeamList from './dashboard tools/TeamList.vue';
     overflow: hidden;
 }
 
+.dashboard__tool h3 {
+    color:var(--primary-color);
+}
+
 .dashboard__tool--full {
     grid-column: 1 / -1;
+}
+
+.dashboard__tool--full h2 {
+    color: var(--primary-color);
 }
 
 .dashboard__tool:nth-child(3) {
@@ -59,13 +70,19 @@ import TeamList from './dashboard tools/TeamList.vue';
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    padding: .5rem .25rem 0;
+    padding: 0 0 .25rem 0;
     width: 85%;
     margin: 0 auto;
     font-size: 0.9rem;
 }
 
+.teamList__labels span:first-child {
+    justify-self: start;
+    margin-left: 1.5rem;
+}
+
 .teamList__labels span:last-child {
     justify-self: end;
+    margin-right: .5rem;
 }
 </style>
