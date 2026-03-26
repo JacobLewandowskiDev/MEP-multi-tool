@@ -1,65 +1,67 @@
 <script setup>
+
 </script>
 
 <template>
-    <div class="teamOverview">
-        <div class="teamOverview__overview">
+    <div class="team">
+        <div class="team__overview">
             <h3>Project Overview</h3>
-            <div class="teamOverview__overview__container">
-                <div class="teamOverview__overview__container__tool">
+            <div class="team__overview__container">
+                <div class="team__overview__container__tool">
                     <h4>Total Projects:</h4>
                     <p>12</p>
                 </div>
-                <div class="teamOverview__overview__container__tool">
+                <div class="team__overview__container__tool">
                     <h4>Upcoming Deadlines:</h4>
                     <p>3</p>
                 </div>
-                <div class="teamOverview__overview__container__tool">
+                <div class="team__overview__container__tool">
                     <h4>Active Projects:</h4>
                     <p>8</p>
                 </div>
-                <div class="teamOverview__overview__container__tool">
+                <div class="team__overview__container__tool">
                     <h4>On Hold Projects:</h4>
                     <p>2</p>
                 </div>
             </div>
         </div>
-         <div class="teamOverview__overview">
+         <div class="team__overview">
               <h3>Team Overview</h3>
-            <div class="teamOverview__overview__container">
-                <div class="teamOverview__overview__container__tool">
+            <div class="team__overview__container">
+                <div class="team__overview__container__tool">
                     <h4>Average Workload:</h4>
                     <p data-tip="Light Workload">&#x1F7E2</p>
                 </div>
-                <div class="teamOverview__overview__container__tool">
+                <div class="team__overview__container__tool">
                     <h4>Team Members:</h4>
                     <p>10</p>
                 </div>
-                <div class="teamOverview__overview__container__tool">
+                <div class="team__overview__container__tool">
                     <h4>Employees on PTO:</h4>
                     <p>3</p>
                 </div>
-                <div class="teamOverview__overview__container__tool">
+                <div class="team__overview__container__tool">
                     <h4>On Hold Projects:</h4>
                     <p>2</p>
                 </div>
             </div>
-
-            
+        </div>
+        <div class="team__overview">
+            <h3>Placeholder</h3>
         </div>
     </div>
 </template>
 
 <style scoped>
-.teamOverview {
+.team {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 1fr 1fr 2fr;
     gap: 1rem;
     height: 100%;
     color: var(--tool-label-color);
 }
 
-.teamOverview__overview {
+.team__overview {
     display: grid;
     gap: 0.5rem;
     font-size: 1rem;
@@ -70,7 +72,7 @@
     margin: 0;
 }
 
-.teamOverview__overview__container {
+.team__overview__container {
     display: grid;
     grid-template-columns: repeat(2, auto); 
     grid-template-rows: repeat(2, auto);
@@ -80,7 +82,7 @@
     gap: 1rem;
 }
 
-.teamOverview__overview__container__tool {
+.team__overview__container__tool {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -92,12 +94,12 @@
     border: var(--tool-border);
 }
 
-.teamOverview__overview__container__tool h4 {
+.team__overview__container__tool h4 {
     font-size: 1rem;
     height: 30%;
 }
 
-.teamOverview__overview__container__tool p {
+.team__overview__container__tool p {
     display: flex;
     flex-direction: column;
     justify-content: center;
