@@ -41,9 +41,9 @@ const selectTool = (toolName) => {
       </div>
       <hr>
         <div v-if="route.meta.showSpecialNav === 'HVAC'" class="content__toollist">
-          <button @click="selectTool('LoadCalc')">Load Calculator</button>
           <button @click="selectTool('DuctSizer')">Duct Sizer</button>
           <button @click="selectTool('EspCalc')">ESP Calculator</button>
+          <button @click="selectTool('LoadCalc')">Load Calculator</button>
           <button @click="selectTool('RefrSizer')">Refrigerant Pipe Sizer</button>
         </div>
 
