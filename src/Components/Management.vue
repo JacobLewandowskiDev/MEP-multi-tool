@@ -2,7 +2,7 @@
 import Navbar from "@/Components/Navbar.vue";
 import Sidebar from "@/Components/Sidebar.vue";
 import Dashboard from "@/Components/Dashboard.vue";
-import ProjectSummary from "@/Components/ProjectSummary.vue";
+import ProjectSummary from "@/Components/dashboardTools/ProjectSummary.vue";
 
 export default {
     components: {
@@ -59,5 +59,6 @@ export default {
     justify-content: center;
     align-items: center;
     width: 100%;
+    overflow: hidden;
 }
 </style>
