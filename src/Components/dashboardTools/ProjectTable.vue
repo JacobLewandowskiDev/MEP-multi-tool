@@ -55,11 +55,11 @@ const truncateText = (text, limit = 60) => {
   <div class="table-container">
     <table class="summary">
       <colgroup>
-        <col style="width: 1rem;"> 
+        <col style="width: 2rem;"> 
         <col style="width: 12rem;"> 
         <col style="width: 14rem;"> 
         <col style="width: 30rem;"> 
-        <col v-for="n in 12" :key="'base-' + n" style="width: 14rem;"> 
+        <col v-for="n in 12" :key="'base-' + n" style="width: 6rem;"> 
         <col v-for="n in 2" :key="'deadline-' + n" style="width: 12rem;"> 
         <col v-for="n in 13" :key="'milestone-' + n" style="width: 10rem;"> 
       </colgroup>
@@ -83,8 +83,8 @@ const truncateText = (text, limit = 60) => {
           <th>PE SIGN/SEAL</th>
           <th>BUDGET HOURS</th>
 
-          <th class="important-group">DEADLINE NAME</th>
-          <th class="important-group">DEADLINE DATE</th>
+          <th class="important-group">NEAREST DEADLINE NAME</th>
+          <th class="important-group">NEAREST DEADLINE DATE</th>
 
           <th>BODR</th>
           <th>30% ID</th>
@@ -147,53 +147,78 @@ const truncateText = (text, limit = 60) => {
 .table-container {
   width: 100%;
   height: 100%;
-  overflow-x: auto;
-  overflow-y: auto;
+  overflow: auto;
+  scroll-behavior: auto !important;
+  -webkit-overflow-scrolling: auto;
 }
 
 .summary {
   font-size: 0.85rem;
-  color: #fff;
+  color: var(--tool-label-color);
   background: var(--tool-inner-container-color);
-  border-collapse: collapse;
+  border-collapse: separate; 
+  border-spacing: 0; 
   table-layout: fixed;
   width: max-content;
   min-width: 100%;
+  text-align: center;
 }
 
-.summary th {
+.summary th, 
+.summary td {
   border-right: var(--tool-border);
   border-bottom: var(--tool-border);
-  padding: 12px 12px;
-  background: var(--tool-background-color);
-  color: #fff;
-  text-transform: uppercase;
-  white-space: normal;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  height: 3rem;
-  vertical-align: middle;
-  font-size: .95rem;
-}
-
-.important-group {
-  background: var(--primary-color-hover) !important;
-  color: #000 !important;
-}
-
-.summary thead th {
-  z-index: 20;
-}
-
-.summary td {
-  border: var(--tool-border);
-  padding: .5rem .2rem;
-  text-align: center;
+  padding: 0.5rem 0.75rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: var(--tool-label-color);
+}
+
+.summary th {
+  background: var(--tool-background-color);
+  text-transform: uppercase;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  height: 3rem;
+  vertical-align: middle;
+  font-size: 0.95rem;
+  color: #cecece;
+}
+
+.summary tr:nth-child(even) {
+  background-color: var(--table-row-color);
+}
+
+
+.sticky-id, 
+.sticky-status, 
+.sticky-name {
+  position: sticky !important;
+  z-index: 10;
+  background-color: var(--tool-inner-container-color);
+}
+
+.sticky-id     { left: 0; }
+.sticky-status { left: 2.2rem; }
+.sticky-name   { left: 14.2rem; }
+
+thead th.sticky-id     { left: 0; }
+thead th.sticky-status { left: 2.2rem; }
+thead th.sticky-name   { left: 14.2rem; }
+
+.summary tr:nth-child(even) :is(.sticky-id, .sticky-status, .sticky-name) {
+    background-color: var(--table-row-color) !important;
+}
+
+thead th:is(.sticky-id, .sticky-status, .sticky-name) {
+  z-index: 50;
+  background-color: var(--tool-background-color) !important;
+}
+
+.important-group {
+  background: var(--important-color) !important;
+  color: #000 !important;
 }
 
 .text-left {
@@ -202,41 +227,23 @@ const truncateText = (text, limit = 60) => {
 }
 
 .status-tag {
-  background: #2add6f;
-  padding: .25rem .75rem;
-  border-radius: .25rem;
+  background: #5fa359;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.25rem;
   font-weight: bold;
   font-size: 0.75rem;
   color: #000;
 }
 
-.sticky-id, 
-.sticky-status, 
 .sticky-name {
-  position: sticky !important;
-  background-color: var(--tool-inner-container-color) !important; 
-  z-index: 5;
-}
-
-.sticky-id     { left: -0.05rem; }
-.sticky-status { left: 2rem; }
-.sticky-name   { left: 13.8rem; }
-
-thead th.sticky-id, 
-thead th.sticky-status, 
-thead th.sticky-name {
-  z-index: 50;
-  background-color: var(--tool-background-color) !important;
-  top: 0;
-}
-
-.summary tr:nth-child(even) td.sticky-id,
-.summary tr:nth-child(even) td.sticky-status,
-.summary tr:nth-child(even) td.sticky-name {
-    background-color: var(--tool-background-color) !important;
-}
-
-.sticky-name {
-  border-right: 2px solid rgba(255, 255, 255, 0.1) !important;
+  border-right: var(--tool-border) !important;
 }
 </style>
+
+// #5fa359 - light active
+// #218018 - medium active
+// #0b5305 - Heavenly active
+// #a57e0b - On hold
+// #93549b - in construction
+// #1c76ad - Bidding
+// #5a5a5a - Completed
