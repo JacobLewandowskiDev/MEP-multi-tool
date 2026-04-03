@@ -56,6 +56,7 @@ body {
     --tool-input-color: #1e293b;
     --tool-label-color: #94a3b8;
     --button-color-active: #fd5000;
+    --button-secondary-color: #ddb997;
 }
 
 nav {
