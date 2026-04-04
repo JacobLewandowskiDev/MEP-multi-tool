@@ -41,8 +41,8 @@ body {
 
 :root {
     --primary-color: #f97316;
-    --primary-color-hover: #e67128;
-    --important-color: #be7237;
+    --primary-color-hover: #f7853f;
+    --important-color: #d17d3d;
     --table-row-color: #151f35;
     --border-color: #a84c12bd;
     --navbar-color: #020617;
@@ -56,7 +56,7 @@ body {
     --tool-input-color: #1e293b;
     --tool-label-color: #94a3b8;
     --button-color-active: #fd5000;
-    --button-secondary-color: #ddb997;
+    --button-secondary-color: #e4b080;
 }
 
 nav {

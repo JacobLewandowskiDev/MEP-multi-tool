@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import ProjectTable from '../dashboardTools/ProjectTable.vue';
+import AddProject from './AddProject.vue';
 
 const tabs = ref([
   'PROJECT SUMMARY', 
@@ -16,6 +17,13 @@ const activeTabIndex = ref(0);
 const setActive = (index) => {
   activeTabIndex.value = index;
 };
+
+const showAddModal = ref(false);
+
+const handleProjectAdded = (newProject) => {
+  showAddModal.value = false;
+  console.log('Project received:', newProject);
+};
 </script>
 
 <template>
@@ -26,7 +34,7 @@ const setActive = (index) => {
             <h3>Project Summary</h3>
             
             <div class="summary__button-wrapper">
-                <button class="summary__add"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                <button @click="showAddModal = true" class="summary__add"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
                     <path d="M160 96C124.7 96 96 124.7 96 160L96 480C96 515.3 124.7 544 160 544L480 544C515.3 544 544 515.3 544 480L544 160C544 124.7 515.3 96 480 96L160 96zM296 408L296 344L232 344C218.7 344 208 333.3 208 320C208 306.7 218.7 296 232 296L296 296L296 232C296 218.7 306.7 208 320 208C333.3 208 344 218.7 344 232L344 296L408 296C421.3 296 432 306.7 432 320C432 333.3 421.3 344 408 344L344 344L344 408C344 421.3 333.3 432 320 432C306.7 432 296 421.3 296 408z"/>
                 </svg>
                     ADD PROJECT</button>
@@ -52,6 +60,7 @@ const setActive = (index) => {
             <button class="summary__tabs__button" :class="{ 'active': activeTabIndex === 5 }" @click="setActive(5)">EMPLOYEE WORKLOAD</button>
         </div>
     </div>
+    <AddProject v-if="showAddModal" @project-added="handleProjectAdded" @close="showAddModal = false" />
 </template>
 
 <style scoped>
