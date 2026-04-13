@@ -5,7 +5,7 @@ import AddProject from './AddProject.vue';
 
 const tabs = ref([
   'PROJECT SUMMARY', 
-  'UPCOMING DEADLINES', 
+  'UPCOMING 4 MONTH DEADLINES', 
   'GEC PROJECTS', 
   'NON-GEC PROJECTS', 
   'PROPOSALS' 
