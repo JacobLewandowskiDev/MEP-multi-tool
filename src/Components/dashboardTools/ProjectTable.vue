@@ -77,10 +77,6 @@ const getStatusClass = (status) => {
   if (!status) return 'status-active-light';
   return 'status-' + status.toLowerCase().replace(/\s+/g, '-');
 };
-
-const setEditingRow = (id) => {
-  editingRowId.value = id;
-};
 </script>
 
 <template>
@@ -146,7 +142,7 @@ const setEditingRow = (id) => {
             </td>
 
             <EditableCell 
-              v-model="project.status" 
+              v-model="project.status"
               type="select" 
               :options="statusOptions"
               class="sticky-status"
@@ -308,7 +304,7 @@ const setEditingRow = (id) => {
 }
 
 .summary__notes {
-  padding-left: 0.5rem;
+  padding: 0 0.5rem;
 }
 
 .summary th {
@@ -326,7 +322,6 @@ const setEditingRow = (id) => {
 .summary tr:nth-child(even) {
   background-color: var(--table-row-color);
 }
-
 
 .sticky-id, 
 .sticky-status, 

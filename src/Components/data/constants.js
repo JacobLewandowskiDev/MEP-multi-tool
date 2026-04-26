@@ -77,3 +77,18 @@ export const truncateText = (text, limit) => {
   return text.length > limit ? text.substring(0, limit) + '...' : text;
 };
 
+
+// Close Select when clicking outside
+export const vClickOutside = {
+  mounted(el, binding) {
+    el.clickOutsideEvent = (event) => {
+      if (!(el === event.target || el.contains(event.target))) {
+        binding.value();
+      }
+    };
+    document.addEventListener("click", el.clickOutsideEvent);
+  },
+  unmounted(el) {
+    document.removeEventListener("click", el.clickOutsideEvent);
+  },
+};

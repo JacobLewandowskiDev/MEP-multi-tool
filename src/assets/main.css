@@ -62,7 +62,6 @@ body {
     --project-name-col-width: 14rem;
     --project-notes-col-width: 30rem;
     --base-index: 100;
-    --sticky-index: 1000;
 }
 
 nav {

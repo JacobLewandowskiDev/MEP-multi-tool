@@ -1,6 +1,6 @@
 <script setup>
 import { nextTick, ref } from 'vue';
-import { truncateText } from '../data/constants';
+import { truncateText, vClickOutside } from '../data/constants';
 
 const props = defineProps({
   modelValue: [String, Number],
@@ -10,7 +10,7 @@ const props = defineProps({
   truncate: { type: Number, default: 60 }
 });
 
-const emit = defineEmits(['update:modelValue', 'open-popup']);
+const emit = defineEmits(['update:modelValue', 'open-popup', 'start-edit', 'stop-edit']);
 
 const isEditing = ref(false);
 const inputRef = ref(null);
@@ -21,6 +21,7 @@ const startEdit = async () => {
     return;
   }
   isEditing.value = true;
+  emit('start-edit');
   await nextTick();
   inputRef.value?.focus();
 };
@@ -29,32 +30,24 @@ const handleSave = (val) => {
   if (!isEditing.value) return;
   emit('update:modelValue', val);
   isEditing.value = false;
+  emit('stop-edit');
 };
 
-const handleSelectChange = (e) => {
-  const newValue = e.target.value;
-  emit('update:modelValue', newValue);
-  nextTick(() => {
+const handleClickOutside = () => {
+  if (isEditing.value) {
     isEditing.value = false;
-  });
-};
-
-const onBlurOrEnter = (e) => {
-  handleSave(e.target.value);
-};
-
-const handleBlur = (e) => {
-  handleSave(e.target.value);
+    emit('stop-edit');
+  }
 };
 </script>
 
 <template>
   <td 
-    ref="cellRef"
-    :title="title || modelValue" 
-    @click="startEdit"
-    :class="{ 'is-editing': isEditing }"
-  >
+  ref="cellRef"
+  v-click-outside="handleClickOutside"
+  :title="title || modelValue" 
+  @click.stop="startEdit"  :class="{ 'is-editing': isEditing }"
+>
     <div v-if="isEditing && type === 'select'" class="custom-select-container">
       <div class="dropdown-list">
         <div 
@@ -102,6 +95,7 @@ td {
   height: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .edit-input {
