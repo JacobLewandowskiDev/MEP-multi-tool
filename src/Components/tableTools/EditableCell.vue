@@ -4,10 +4,14 @@ import { truncateText, vClickOutside } from '../data/constants';
 
 const props = defineProps({
   modelValue: [String, Number],
-  type: { type: String, default: 'text' },
+  type: { type: String, default: 'text'},
   options: { type: Array, default: () => [] },
   title: String,
-  truncate: { type: Number, default: 60 }
+  truncate: { type: Number, default: 60 },
+  justify: { type: String, default: 'left' },
+  max: { type: [Number, String], default: null },
+  numeric: { type: Boolean, default: false },
+  multi: { type: Boolean, default: false }
 });
 
 const emit = defineEmits(['update:modelValue', 'open-popup', 'start-edit', 'stop-edit']);
@@ -26,6 +30,16 @@ const startEdit = async () => {
   inputRef.value?.focus();
 };
 
+const handleInput = (event) => {
+  let val = event.target.value;
+
+  if (props.numeric) {
+    val = val.replace(/\D/g, '');
+    event.target.value = val;
+  }
+  emit('update:modelValue', val);
+};
+
 const handleSave = (val) => {
   if (!isEditing.value) return;
   emit('update:modelValue', val);
@@ -37,6 +51,22 @@ const handleClickOutside = () => {
   if (isEditing.value) {
     isEditing.value = false;
     emit('stop-edit');
+  }
+};
+
+const handleSelect = (val) => {
+  if (props.multi) {
+    const currentValues = Array.isArray(props.modelValue) ? [...props.modelValue] : [];
+    const index = currentValues.indexOf(val);
+    
+    if (index > -1) {
+      currentValues.splice(index, 1);
+    } else {
+      currentValues.push(val);
+    }
+    emit('update:modelValue', currentValues);
+  } else {
+    handleSave(val); 
   }
 };
 </script>
@@ -54,9 +84,19 @@ const handleClickOutside = () => {
           v-for="opt in options" 
           :key="opt.value" 
           class="dropdown-item"
-          :class="{ 'selected': opt.value === modelValue }"
-          @click.stop="handleSave(opt.value)"
+          :class="{ 'selected': props.multi 
+            ? (Array.isArray(modelValue) && modelValue.includes(opt.value))
+            : opt.value === modelValue 
+          }"
+          @click.stop="handleSelect(opt.value)"
         >
+          <input 
+            v-if="multi" 
+            type="checkbox" 
+            :checked="Array.isArray(modelValue) && modelValue.includes(opt.value)" 
+            @click.stop 
+            style="margin-right: 8px;"
+          />
           {{ opt.label }}
         </div>
       </div>
@@ -66,17 +106,24 @@ const handleClickOutside = () => {
       v-else-if="isEditing && type === 'text'"
       ref="inputRef"
       type="text"
+      :maxlength="max"
       :value="modelValue"
-      @input="$emit('update:modelValue', $event.target.value)" 
-      @blur="isEditing = false"
+      @input="handleInput"  @blur="isEditing = false"
       @keyup.enter="handleSave($event.target.value)"
       @click.stop 
       class="edit-input"
     />
 
     <slot v-else name="view">
-      <div class="view-wrapper">
-        {{ truncateText(modelValue, truncate) }}
+      <div 
+        class="view-wrapper" 
+        :style="{ justifyContent: justify === 'center' ? 'center' : 'flex-start' }"
+      >
+        {{ 
+          Array.isArray(modelValue) 
+            ? truncateText(modelValue.join(', '), truncate) 
+            : truncateText(modelValue, truncate) 
+        }}
       </div>
     </slot>
   </td>
@@ -96,6 +143,9 @@ td {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .edit-input {

@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { usStates, statusOptions, truncateText } from '../data/constants';
+import { usStates, projectTypes, statusOptions, scopeTrades, gecAllowed, truncateText, leadEngineers, assistEngineers } from '../data/constants';
 import EditableCell from '../tableTools/EditableCell.vue';
 
 const projects = ref([
@@ -11,9 +11,9 @@ const projects = ref([
     notes: 'Verify pump head calcs',
     state: 'NY',
     client: 'Nexus Development',
-    code: 'MEP-2026-001',
+    code: '123456789',
     type: 'REPORT',
-    trades: 'M/E/P',
+    trades: 'PLBG, FP',
     pm: 'Sarah Jenkins',
     gec: 'NO',
     lead: 'John Doe',
@@ -32,9 +32,9 @@ const projects = ref([
         notes: 'Coordinate with structural team on beam calcs, also checking for how notes look when they are longer and wrap onto multiple lines',
         state: 'NY',
         client: 'Nexus Development',
-        code: 'MEP-2026-002',
+        code: '365781265',
         type: 'DESIGN',
-        trades: 'M/E/P',
+        trades: 'HVAC',
         pm: 'Sarah Jenkins',
         gec: 'YES',
         lead: 'John Doe',
@@ -87,9 +87,9 @@ const getStatusClass = (status) => {
         <col style="width: var(--status-col-width);"> 
         <col style="width: var(--project-name-col-width);"> 
         <col style="width: var(--project-notes-col-width);"> 
-        <col v-for="n in 12" :key="'base-' + n" style="width: 6rem;"> 
-        <col v-for="n in 2" :key="'deadline-' + n" style="width: 12rem;"> 
-        <col v-for="n in 13" :key="'milestone-' + n" style="width: 10rem;"> 
+        <col v-for="n in 12" :key="'base-' + n" style="width: 12rem; max-width: 12rem;"> 
+        <col v-for="n in 2" :key="'deadline-' + n" style="width: 14rem; max-width: 12rem;"> 
+        <col v-for="n in 13" :key="'milestone-' + n" style="width: 12rem; max-width: 12rem;"> 
       </colgroup>
 
       <thead>
@@ -156,85 +156,76 @@ const getStatusClass = (status) => {
               </template>
             </EditableCell>
             
-            <EditableCell v-model="project.name" class="sticky-name text-left" />
+            <EditableCell v-model="project.name" :truncate="90" justify="left" class="sticky-name" />
 
-            <td class="important-group text-left summary__notes" 
+            <td class="important-group summary__notes" 
                 :title="project.notes" 
                 @click="openNotes(project)">
                 {{ truncateText(project.notes, 90) }}
             </td>
 
             <EditableCell 
-              v-model="project.state" 
+              v-model="project.state"
+              justify="center" 
               type="select" 
               :options="usStates.map(s => ({ label: s.name, value: s.abbreviation }))" 
             />
 
-            <!-- <td :title="project.client">{{ project.client }}</td>
-            <td :title="project.code">{{ project.code }}</td>
-             <td @click="startEdit(project.id, 'type')">
-              <select
-                v-if="editingCell.id === project.id && editingCell.field === 'type'"
-                v-model="project.type"
-                @blur="stopEdit"
-                @change="stopEdit" 
-                v-focus
-                class="edit-select"
-                placeholder="project.type"
-              >
-                <option value="-">-</option>
-                <option value="DESIGN">DESIGN</option>
-                <option value="REPORT">REPORT</option>
-                <option value="QA/QC REVIEW">QAQC REVIEW</option>
-                <option value="CONSTRUCTION">CONSTRUCTION</option>
-              </select>
+            <EditableCell v-model="project.client" :truncate="22" justify="center"/>
+            <EditableCell v-model="project.code" justify="center" :max="9" numeric/>
+            <EditableCell 
+              v-model="project.type"
+              justify="center" 
+              type="select" 
+              :options="projectTypes.map(s => ({ label: s.label, value: s.value }))" 
+            />
+            <EditableCell 
+              v-model="project.trades"
+              justify="center" 
+              type="select" 
+              multi
+              :options="scopeTrades.map(s => ({ label: s.label, value: s.value }))" 
+            />
+            <EditableCell v-model="project.pm" :truncate="22" justify="center"/>
 
-              <span 
-                v-else 
-                :title="project.type"
-              >
-                {{ project.type }}
-              </span>
-            </td>
-            <td :title="project.trades">{{ project.trades }}</td>
-            <td :title="project.pm">{{ project.pm }}</td>
-            <td @click="startEdit(project.id, 'gec')">
-              <select
-                v-if="editingCell.id === project.id && editingCell.field === 'gec'"
-                v-model="project.gec"
-                @blur="stopEdit"
-                @change="stopEdit" 
-                v-focus
-                class="edit-select"
-              >
-                <option value="-">-</option>
-                <option value="YES">YES</option>
-                <option value="NO">NO</option>
-              </select>
+            <EditableCell 
+              v-model="project.gec"
+              justify="center" 
+              type="select" 
+              :options="gecAllowed.map(s => ({ label: s.label, value: s.value }))" 
+            />
 
-              <span 
-                v-else 
-                :title="project.gec"
-              >
-                {{ project.gec }}
-              </span>
-            </td>
-            <td :title="project.lead">{{ project.lead }}</td>
-            <td :title="project.assist">{{ project.assist}}</td>
-            <td :title="project.qa">{{ project.qa }}</td>
-            <td :title="project.seal">{{ project.seal }}</td>
-            <td>{{ project.budget }}</td>
+            <EditableCell 
+              v-model="project.lead"
+              justify="center" 
+              type="select" 
+              :options="leadEngineers.map(s => ({ label: s.name, value: s.name }))" 
+            />
 
-            <td class="important-group" :title="project.deadlineName">
+            <EditableCell 
+              v-model="project.assist"
+              justify="center" 
+              type="select" 
+              :options="assistEngineers.map(s => ({ label: s.name, value: s.name }))" 
+              multi
+            />
+
+            <EditableCell v-model="project.qa" :truncate="22" justify="center"/>
+
+            <EditableCell v-model="project.seal" :truncate="22" justify="center"/>
+
+            <EditableCell v-model="project.budget" justify="center" :max="3" numeric/>
+
+            <td class="important-group" :title="project.deadlineName" style="cursor: default;">
                 {{ project.deadlineName }}
             </td>
-            <td class="important-group" :title="project.deadlineDate">
+            <td class="important-group" :title="project.deadlineDate" style="cursor: default;">
                 {{ project.deadlineDate }}
             </td>
 
             <td v-for="(date, index) in project.milestones" :key="index" :title="date">
                 {{ date }}
-            </td> -->
+            </td>
         </tr>
       </tbody>
     </table>
@@ -305,6 +296,7 @@ const getStatusClass = (status) => {
 
 .summary__notes {
   padding: 0 0.5rem;
+  text-align: left;
 }
 
 .summary th {
@@ -355,10 +347,6 @@ thead th:is(.sticky-id, .sticky-status, .sticky-name) {
 .important-group {
   background: var(--important-color) !important;
   color: #000 !important;
-}
-
-.text-left {
-  text-align: left !important;
 }
 
 .status-tag {

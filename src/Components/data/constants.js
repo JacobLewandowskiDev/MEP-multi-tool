@@ -65,12 +65,45 @@ export const statusOptions = [
   { label: 'COMPLETED', value: 'COMPLETED' }
 ];
 
+// The different types of projects
+export const projectTypes = [
+  { label: 'DESIGN', value: 'DESIGN' },
+  { label: 'REPORT', value: 'REPORT' },
+  { label: 'QA/QC', value: 'QA/QC REVIEW' },
+  { label: 'CONSTRUCTION', value: 'CONSTRUCTION' }
+];
+
+// The different work Scopes (trades)
+export const scopeTrades = [
+  { label: 'Architecture', value: 'ARCH' },
+  { label: 'Civil', value: 'CIVIL' },
+  { label: 'Electrical', value: 'ELEC' },
+  { label: 'Fire Protection', value: 'FP' },
+  { label: 'HVAC', value: 'HVAC' },
+  { label: 'Plumbing', value: 'PLBG' },
+  { label: 'Process Mechanical', value: 'P-MECH' },
+  { label: 'Structural', value: 'STRL' },
+];
+
+// Is GEC Allowed on the project?
+export const gecAllowed = [
+  { label: 'YES', value: 'YES' },
+  { label: 'NO', value: 'NO' }
+];
+
 // This will be changed to a function that fetches all lead enginers from the database based on who the team lead is, but for now it's hardcoded for testing purposes
 export const leadEngineers = [
   { name: 'John Doe', email: 'john.doe@company.com' },
   { name: 'Jane Smith', email: 'jane.smith@company.com' },
   { name: 'Bob Johnson', email: 'bob.johnson@company.com' }
 ];
+
+export const assistEngineers = [
+  { name: 'John Doe', email: 'john.doe@company.com' },
+  { name: 'Jane Smith', email: 'jane.smith@company.com' },
+  { name: 'Bob Johnson', email: 'bob.johnson@company.com' }
+];
+
 
 export const truncateText = (text, limit) => {
   if (!text) return '-';

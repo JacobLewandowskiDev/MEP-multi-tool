@@ -69,18 +69,14 @@
             <input type="text" id="client" name="client" maxlength="64" required placeholder="Enter the client name" >
 
             <label for="resourceCode">4. Resource Code:</label>
-            <input type="number" id="resourceCode" name="resourceCode" max="999999999" required placeholder="eg. 123456789">
+            <input type="number" id="resourceCode" name="resourceCode" max="999999999" placeholder="eg. 123456789">
 
             <label for="projectType">5. Project Type:</label>
             <select id="projectType" name="projectType" required>
-                <option value="">Select Project Scope</option>
-                <option value="type1">ARCH</option>
-                <option value="type7">CIVIL</option>
-                <option value="type3">ELECT</option>
-                <option value="type6">FP</option>
-                <option value="type4">HVAC</option>
-                <option value="type5">PLBG</option>
-                <option value="type2">STRL</option>
+                <option value="type1">DESIGN</option>
+                <option value="type2">REPORT</option>
+                <option value="type3">QA/QC</option>
+                <option value="type4">CONSTRUCTION</option>
             </select>
 
             <button class="submit-button" type="submit">Add Project</button>
