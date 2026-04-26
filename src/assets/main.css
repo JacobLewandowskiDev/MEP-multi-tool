@@ -57,6 +57,12 @@ body {
     --tool-label-color: #94a3b8;
     --button-color-active: #fd5000;
     --button-secondary-color: #e4b080;
+    --project-id-col-width: 2rem;
+    --status-col-width: 12rem;
+    --project-name-col-width: 14rem;
+    --project-notes-col-width: 30rem;
+    --base-index: 100;
+    --sticky-index: 1000;
 }
 
 nav {

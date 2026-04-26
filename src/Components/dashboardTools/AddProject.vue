@@ -11,8 +11,7 @@
             <input type="text" id="projectName" name="projectName" maxlength="64" required placeholder="Enter the project name">
 
             <label for="state">2. US State:</label>
-            <select id="state" name="state" required>
-                <option value="">Select a state</option>
+            <select id="state" name="state" required placeholder="Select a State">
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
                 <option value="AZ">Arizona</option>
@@ -99,7 +98,7 @@
     justify-content: center;
     align-items: center;
     background: var(--tool-background-color);
-    z-index: 1000;
+    z-index: 10000;
     top: 0;
     left: 0;
 }

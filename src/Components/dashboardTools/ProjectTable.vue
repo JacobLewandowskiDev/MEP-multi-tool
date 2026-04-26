@@ -1,7 +1,9 @@
 <script setup>
 import { ref } from 'vue';
-import { usStates } from '../data/constants';
-const projects = [
+import { usStates, statusOptions, truncateText } from '../data/constants';
+import EditableCell from '../tableTools/EditableCell.vue';
+
+const projects = ref([
   {
     id: 1,
     status: 'ACTIVE LIGHT',
@@ -44,22 +46,12 @@ const projects = [
         deadlineDate: '2026-05-20',
         milestones: ['2026-03-15', '2026-04-01', '2026-04-10', '2026-04-30', '2026-05-20', '-', '-', '-', '-', '-', '-', '-', '-']
     }
-];
-
-const editingCell = ref({ id: null, field: null });
-
-const startEdit = (id, field) => {
-  editingCell.value = { id, field };
-};
-
-const stopEdit = () => {
-  editingCell.value = { id: null, field: null };
-};
+]);
 
 const isNotesOpen = ref(false);
 const activeProject = ref(null);
-
 const notesBuffer = ref('');
+const editingRowId = ref(null);
 
 const openNotes = (project) => {
   activeProject.value = project;
@@ -81,15 +73,13 @@ const closeNotes = () => {
   notesBuffer.value = '';
 };
 
-const truncateText = (text, limit = 60) => {
-  if (!text) return '-';
-  const str = String(text);
-  return str.length > limit ? str.substring(0, limit) + '...' : str;
-};
-
 const getStatusClass = (status) => {
   if (!status) return 'status-active-light';
   return 'status-' + status.toLowerCase().replace(/\s+/g, '-');
+};
+
+const setEditingRow = (id) => {
+  editingRowId.value = id;
 };
 </script>
 
@@ -97,10 +87,10 @@ const getStatusClass = (status) => {
   <div class="table-container">
     <table class="summary">
       <colgroup>
-        <col style="width: 2rem;"> 
-        <col style="width: 12rem;"> 
-        <col style="width: 14rem;"> 
-        <col style="width: 30rem;"> 
+        <col style="width: var(--project-id-col-width);"> 
+        <col style="width: var(--status-col-width);"> 
+        <col style="width: var(--project-name-col-width);"> 
+        <col style="width: var(--project-notes-col-width);"> 
         <col v-for="n in 12" :key="'base-' + n" style="width: 6rem;"> 
         <col v-for="n in 2" :key="'deadline-' + n" style="width: 12rem;"> 
         <col v-for="n in 13" :key="'milestone-' + n" style="width: 10rem;"> 
@@ -145,83 +135,46 @@ const getStatusClass = (status) => {
       </thead>
 
       <tbody>
-        <tr v-for="project in projects" :key="project.id">
-            <td class="sticky-id">{{ project.id }}</td>
-            <td class="sticky-status" @click="startEdit(project.id, 'status')">
-              <select
-                v-if="editingCell.id === project.id && editingCell.field === 'status'"
-                v-model="project.status"
-                @blur="stopEdit"
-                @change="stopEdit" 
-                v-focus
-                class="edit-select"
-              >
-                <option value="ACTIVE LIGHT">Active Light</option>
-                <option value="ACTIVE MEDIUM">Active Medium</option>
-                <option value="ACTIVE HEAVY">Active Heavy</option>
-                <option value="ON HOLD">On Hold</option>
-                <option value="IN CONSTRUCTION">In Construction</option>
-                <option value="BIDDING">Bidding</option>
-                <option value="COMPLETED">Completed</option>
-              </select>
+         <tr 
+          v-for="(project, index) in projects" 
+          :key="project.id"
+          :style="{ zIndex: 10000 - index }"
+          :class="{ 'is-editing-row': editingRowId === project.id }"
+        >
+            <td class="sticky-id">
+              {{ project.id }}
+            </td>
 
-              <span 
-                v-else 
-                class="status-tag" 
-                :class="getStatusClass(project.status)"
-                :title="project.status"
-              >
-                {{ project.status }}
-              </span>
-            </td>
-            <td @click="startEdit(project.id, 'name')" class="sticky-name text-left">
-              <input type ="text"
-                v-if="editingCell.id === project.id && editingCell.field === 'name'"
-                v-model="project.name"
-                @blur="stopEdit"
-                @change="stopEdit" 
-                v-focus
-                class="edit-select"
-                placeholder="project.name"
-              >
-               
-             </input>
-              <span 
-                v-else 
-                :title="project.name"
-              >
-                {{ truncateText(project.name, 60) }}
-              </span>
-            </td>
-            <td class="important-group text-left" 
+            <EditableCell 
+              v-model="project.status" 
+              type="select" 
+              :options="statusOptions"
+              class="sticky-status"
+              @start-edit="editingRowId = project.id"
+              @stop-edit="editingRowId = null"
+            >
+              <template #view> 
+                <span class="status-tag" :class="getStatusClass(project.status)">
+                  {{ project.status }}
+                </span>
+              </template>
+            </EditableCell>
+            
+            <EditableCell v-model="project.name" class="sticky-name text-left" />
+
+            <td class="important-group text-left summary__notes" 
                 :title="project.notes" 
                 @click="openNotes(project)">
-                {{ truncateText(project.notes, 60) }}
+                {{ truncateText(project.notes, 90) }}
             </td>
 
-            <td @click="startEdit(project.id, 'state')">
-              <select
-                v-if="editingCell.id === project.id && editingCell.field === 'state'"
-                v-model="project.state"
-                @blur="stopEdit"
-                @change="stopEdit" 
-                v-focus
-                class="edit-select"
-              >
-                <option v-for="state in usStates" :key="state.abbreviation" :value="state.abbreviation">
-                  {{ state.abbreviation }} - {{ state.name }}
-                </option>
-              </select>
+            <EditableCell 
+              v-model="project.state" 
+              type="select" 
+              :options="usStates.map(s => ({ label: s.name, value: s.abbreviation }))" 
+            />
 
-              <span 
-                v-else 
-                :title="project.state"
-              >
-                {{ project.state }}
-              </span>
-            </td>
-
-            <td :title="project.client">{{ truncateText(project.client, 60) }}</td>
+            <!-- <td :title="project.client">{{ project.client }}</td>
             <td :title="project.code">{{ project.code }}</td>
              <td @click="startEdit(project.id, 'type')">
               <select
@@ -271,13 +224,13 @@ const getStatusClass = (status) => {
               </span>
             </td>
             <td :title="project.lead">{{ project.lead }}</td>
-            <td :title="project.assist">{{ truncateText(project.assist, 60) }}</td>
+            <td :title="project.assist">{{ project.assist}}</td>
             <td :title="project.qa">{{ project.qa }}</td>
             <td :title="project.seal">{{ project.seal }}</td>
             <td>{{ project.budget }}</td>
 
             <td class="important-group" :title="project.deadlineName">
-                {{ truncateText(project.deadlineName, 60) }}
+                {{ project.deadlineName }}
             </td>
             <td class="important-group" :title="project.deadlineDate">
                 {{ project.deadlineDate }}
@@ -285,7 +238,7 @@ const getStatusClass = (status) => {
 
             <td v-for="(date, index) in project.milestones" :key="index" :title="date">
                 {{ date }}
-            </td>
+            </td> -->
         </tr>
       </tbody>
     </table>
@@ -338,8 +291,6 @@ const getStatusClass = (status) => {
 .summary td {
   border-right: var(--tool-border);
   border-bottom: var(--tool-border);
-  padding: 0.5rem 0.75rem;
-  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -356,8 +307,8 @@ const getStatusClass = (status) => {
   color: var(--tool-label-color);
 }
 
-.summary td:nth-child(1) {
-  padding: 0;
+.summary__notes {
+  padding-left: 0.5rem;
 }
 
 .summary th {
@@ -381,7 +332,7 @@ const getStatusClass = (status) => {
 .sticky-status, 
 .sticky-name {
   position: sticky !important;
-  z-index: 10;
+  z-index: inherit;
   background-color: var(--tool-inner-container-color);
 }
 
@@ -390,12 +341,12 @@ const getStatusClass = (status) => {
 }
 
 .sticky-id     { left: 0; }
-.sticky-status { left: 2.2rem; }
-.sticky-name   { left: 14.2rem; }
+.sticky-status { left: 2rem; }
+.sticky-name   { left: 14rem; }
 
 thead th.sticky-id     { left: 0; }
-thead th.sticky-status { left: 2.2rem; }
-thead th.sticky-name   { left: 14.2rem; }
+thead th.sticky-status { left: 2rem; }
+thead th.sticky-name   { left: 14rem; }
 
 .summary tr:nth-child(even) :is(.sticky-id, .sticky-status, .sticky-name) {
     background-color: var(--table-row-color) !important;
@@ -413,12 +364,11 @@ thead th:is(.sticky-id, .sticky-status, .sticky-name) {
 
 .text-left {
   text-align: left !important;
-  padding-left: 15px !important;
 }
 
 .status-tag {
   display: inline-block;
-  min-width: 100%;
+  min-width: 95%;
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   font-weight: 800;
@@ -481,7 +431,7 @@ thead th:is(.sticky-id, .sticky-status, .sticky-name) {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 100000;
 }
 
 .notes-modal {

@@ -1,3 +1,5 @@
+
+// US State list
 export const usStates = [
   { name: 'Alabama', abbreviation: 'AL' },
   { name: 'Alaska', abbreviation: 'AK' },
@@ -52,9 +54,26 @@ export const usStates = [
   { name: 'Wyoming', abbreviation: 'WY' }
 ];
 
+// Project status options
+export const statusOptions = [
+  { label: 'ACTIVE LIGHT', value: 'ACTIVE LIGHT' },
+  { label: 'ACTIVE MEDIUM', value: 'ACTIVE MEDIUM' },
+  { label: 'ACTIVE HEAVY', value: 'ACTIVE HEAVY' },
+  { label: 'ON HOLD', value: 'ON HOLD' },
+  { label: 'IN CONSTRUCTION', value: 'IN CONSTRUCTION' },
+  { label: 'BIDDING', value: 'BIDDING' },
+  { label: 'COMPLETED', value: 'COMPLETED' }
+];
+
 // This will be changed to a function that fetches all lead enginers from the database based on who the team lead is, but for now it's hardcoded for testing purposes
 export const leadEngineers = [
   { name: 'John Doe', email: 'john.doe@company.com' },
   { name: 'Jane Smith', email: 'jane.smith@company.com' },
   { name: 'Bob Johnson', email: 'bob.johnson@company.com' }
 ];
+
+export const truncateText = (text, limit) => {
+  if (!text) return '-';
+  return text.length > limit ? text.substring(0, limit) + '...' : text;
+};
+

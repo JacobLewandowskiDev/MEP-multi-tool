@@ -6,9 +6,8 @@ import AddProject from './AddProject.vue';
 const tabs = ref([
   'PROJECT SUMMARY', 
   'UPCOMING 4 MONTH DEADLINES', 
-  'GEC PROJECTS', 
-  'NON-GEC PROJECTS', 
-  'PROPOSALS' 
+  'PROPOSALS', 
+  'COMPLETED PROJECTS'
 ]);
 
 // Track the index of the active tab
