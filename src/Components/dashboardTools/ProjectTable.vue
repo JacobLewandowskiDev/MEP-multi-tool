@@ -23,7 +23,7 @@ const projects = ref([
     budget: 120,
     deadlineName: '60% Submittal',
     deadlineDate: '2026-04-15',
-    milestones: ['2026-03-01', '2026-03-10', '2026-03-12', '2026-03-25', '2026-04-15', '-', '-', '-', '-', '-', '-', '-', '-']
+    milestones: ['2026-03-01', '2026-03-10', '2026-03-12', '2026-06-29', '2026-05-01', '-', '-', '-', '-', '-', '-', '-', '-']
   }, 
     {
         id: 2,
@@ -52,6 +52,7 @@ const isNotesOpen = ref(false);
 const activeProject = ref(null);
 const notesBuffer = ref('');
 const editingRowId = ref(null);
+const milestoneHeaders = ['BODR', '30% ID', '30% ED', '60% ID', '60% ED', '90% ID', '90% ED', '100% ID', '100% ED', 'BID READY ID', 'BID READY ED', 'REPORT DRAFT', 'REPORT FINAL'];
 
 const openNotes = (project) => {
   activeProject.value = project;
@@ -76,6 +77,36 @@ const closeNotes = () => {
 const getStatusClass = (status) => {
   if (!status) return 'status-active-light';
   return 'status-' + status.toLowerCase().replace(/\s+/g, '-');
+};
+
+const getNextMilestone = (milestones, headers) => {
+  if (!milestones || !headers) return { name: '-', date: '-' };
+
+  const today = new Date();
+  
+  const validDates = milestones
+    .map((dateStr, index) => {
+      if (dateStr === '-' || !dateStr) return null;
+      return {
+        date: new Date(dateStr),
+        name: headers[index],
+        originalStr: dateStr
+      };
+    })
+    .filter(item => item !== null && !isNaN(item.date));
+
+  const futureDates = validDates.filter(item => item.date >= today);
+
+  if (futureDates.length === 0) {
+    return { name: 'N/A', date: '-' };
+  }
+
+  futureDates.sort((a, b) => a.date - b.date);
+
+  return {
+    name: futureDates[0].name,
+    date: futureDates[0].originalStr
+  };
 };
 </script>
 
@@ -216,11 +247,11 @@ const getStatusClass = (status) => {
 
             <EditableCell v-model="project.budget" justify="center" :max="3" numeric/>
 
-            <td class="important-group" :title="project.deadlineName" style="cursor: default;">
-                {{ project.deadlineName }}
+            <td class="important-group" style="cursor: default;">
+              {{ getNextMilestone(project.milestones, milestoneHeaders).name }}
             </td>
-            <td class="important-group" :title="project.deadlineDate" style="cursor: default;">
-                {{ project.deadlineDate }}
+            <td class="important-group" style="cursor: default;">
+              {{ getNextMilestone(project.milestones, milestoneHeaders).date }}
             </td>
 
             <td v-for="(date, index) in project.milestones" :key="index" :title="date">
