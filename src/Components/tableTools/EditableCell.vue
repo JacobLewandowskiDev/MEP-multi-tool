@@ -1,5 +1,5 @@
 <script setup>
-import { nextTick, ref } from 'vue';
+import { nextTick, ref, watch } from 'vue';
 import { truncateText, vClickOutside } from '../data/constants';
 
 const props = defineProps({
@@ -69,6 +69,16 @@ const handleSelect = (val) => {
     handleSave(val); 
   }
 };
+
+watch(isEditing, async (newValue) => {
+  if (newValue) {
+    await nextTick();
+    inputRef.value?.focus();
+    if (props.type === 'date' && inputRef.value?.showPicker) {
+      inputRef.value.showPicker();
+    }
+  }
+});
 </script>
 
 <template>
@@ -112,6 +122,17 @@ const handleSelect = (val) => {
       @keyup.enter="handleSave($event.target.value)"
       @click.stop 
       class="edit-input"
+    />
+
+    <input
+        v-if="type === 'date'"
+        ref="inputRef"
+        type="date"
+        :value="modelValue"
+        @input="$emit('update:modelValue', $event.target.value)"
+        @blur="isEditing = false"
+        @keyup.enter="isEditing = false"
+        class="edit-input date-input"
     />
 
     <slot v-else name="view">
@@ -206,5 +227,26 @@ td {
 .dropdown-item.selected {
   background-color: #333;
   color: var(--primary-color);
+}
+
+.date-input {
+  background: none;
+  color: var(--tool-label);
+  border: none;
+  width: 100%;
+  font-size: .9rem;
+  text-align: center;
+  cursor: pointer;
+  color-scheme: dark;
+}
+
+.date-input::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+  display: none;
+}
+
+.date-input:focus {
+  border: 1px solid var(--primary-color);
 }
 </style>

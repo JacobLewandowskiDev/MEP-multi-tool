@@ -1,8 +1,9 @@
 <script setup>
 import { ref } from 'vue';
-import { usStates, projectTypes, statusOptions, scopeTrades, gecAllowed, truncateText, leadEngineers, assistEngineers } from '../data/constants';
+import { usStates, projectTypes, statusOptions, scopeTrades, gecAllowed, truncateText, leadEngineers, assistEngineers, MILESTONE_MAP } from '../data/constants';
 import EditableCell from '../tableTools/EditableCell.vue';
 
+// Testing purposes only - will be removed once backend is implemented
 const projects = ref([
   {
     id: 1,
@@ -23,8 +24,21 @@ const projects = ref([
     budget: 120,
     deadlineName: '60% Submittal',
     deadlineDate: '2026-04-15',
-    milestones: ['2026-03-01', '2026-03-10', '2026-03-12', '2026-06-29', '2026-05-01', '-', '-', '-', '-', '-', '-', '-', '-']
-  }, 
+    milestones: {
+      bodr: '2026-06-01',
+      id30: '2026-07-10',
+      ed30: '2026-08-12',
+      id60: '2026-03-25',
+      ed60: '2026-04-01',
+      id90: '-',
+      ed90: '-',
+      id100: '-',
+      ed100: '-',
+      bidReadyId: '-',
+      bidReadyEd: '-',
+      reportDraft: '-',
+      reportFinal: '-'
+    }}, 
     {
         id: 2,
         status: 'ACTIVE MEDIUM',
@@ -44,15 +58,775 @@ const projects = ref([
         budget: 100,
         deadlineName: '90% Submittal',
         deadlineDate: '2026-05-20',
-        milestones: ['2026-03-15', '2026-04-01', '2026-04-10', '2026-04-30', '2026-05-20', '-', '-', '-', '-', '-', '-', '-', '-']
-    }
+        milestones: {
+          bodr: '2026-03-01',
+          id30: '2026-03-10',
+          ed30: '2026-03-12',
+          id60: '2026-03-25',
+          ed60: '2026-04-01',
+          id90: '-',
+          ed90: '-',
+          id100: '-',
+          ed100: '-',
+          bidReadyId: '-',
+          bidReadyEd: '-',
+          reportDraft: '-',
+          reportFinal: '-'
+        }}, 
+    {
+        id: 2,
+        status: 'ACTIVE MEDIUM',
+        name: 'White Plains Office Building',
+        notes: 'Coordinate with structural team on beam calcs, also checking for how notes look when they are longer and wrap onto multiple lines',
+        state: 'NY',
+        client: 'Nexus Development',
+        code: '365781265',
+        type: 'DESIGN',
+        trades: 'HVAC',
+        pm: 'Sarah Jenkins',
+        gec: 'YES',
+        lead: 'John Doe',
+        assist: 'Alex P.',
+        qa: 'Kevin Smith',
+        seal: 'Anthony Lee',
+        budget: 100,
+        deadlineName: '90% Submittal',
+        deadlineDate: '2026-05-20',
+        milestones: {
+          bodr: '2026-03-01',
+          id30: '2026-03-10',
+          ed30: '2026-03-12',
+          id60: '2026-03-25',
+          ed60: '2026-04-01',
+          id90: '-',
+          ed90: '-',
+          id100: '-',
+          ed100: '-',
+          bidReadyId: '-',
+          bidReadyEd: '-',
+          reportDraft: '-',
+          reportFinal: '-'
+        }}, 
+    {
+        id: 2,
+        status: 'ACTIVE MEDIUM',
+        name: 'White Plains Office Building',
+        notes: 'Coordinate with structural team on beam calcs, also checking for how notes look when they are longer and wrap onto multiple lines',
+        state: 'NY',
+        client: 'Nexus Development',
+        code: '365781265',
+        type: 'DESIGN',
+        trades: 'HVAC',
+        pm: 'Sarah Jenkins',
+        gec: 'YES',
+        lead: 'John Doe',
+        assist: 'Alex P.',
+        qa: 'Kevin Smith',
+        seal: 'Anthony Lee',
+        budget: 100,
+        deadlineName: '90% Submittal',
+        deadlineDate: '2026-05-20',
+        milestones: {
+          bodr: '2026-03-01',
+          id30: '2026-03-10',
+          ed30: '2026-03-12',
+          id60: '2026-03-25',
+          ed60: '2026-04-01',
+          id90: '-',
+          ed90: '-',
+          id100: '-',
+          ed100: '-',
+          bidReadyId: '-',
+          bidReadyEd: '-',
+          reportDraft: '-',
+          reportFinal: '-'
+        }}, 
+    {
+        id: 2,
+        status: 'ACTIVE MEDIUM',
+        name: 'White Plains Office Building',
+        notes: 'Coordinate with structural team on beam calcs, also checking for how notes look when they are longer and wrap onto multiple lines',
+        state: 'NY',
+        client: 'Nexus Development',
+        code: '365781265',
+        type: 'DESIGN',
+        trades: 'HVAC',
+        pm: 'Sarah Jenkins',
+        gec: 'YES',
+        lead: 'John Doe',
+        assist: 'Alex P.',
+        qa: 'Kevin Smith',
+        seal: 'Anthony Lee',
+        budget: 100,
+        deadlineName: '90% Submittal',
+        deadlineDate: '2026-05-20',
+        milestones: {
+          bodr: '2026-03-01',
+          id30: '2026-03-10',
+          ed30: '2026-03-12',
+          id60: '2026-03-25',
+          ed60: '2026-04-01',
+          id90: '-',
+          ed90: '-',
+          id100: '-',
+          ed100: '-',
+          bidReadyId: '-',
+          bidReadyEd: '-',
+          reportDraft: '-',
+          reportFinal: '-'
+        }}, 
+    {
+        id: 2,
+        status: 'ACTIVE MEDIUM',
+        name: 'White Plains Office Building',
+        notes: 'Coordinate with structural team on beam calcs, also checking for how notes look when they are longer and wrap onto multiple lines',
+        state: 'NY',
+        client: 'Nexus Development',
+        code: '365781265',
+        type: 'DESIGN',
+        trades: 'HVAC',
+        pm: 'Sarah Jenkins',
+        gec: 'YES',
+        lead: 'John Doe',
+        assist: 'Alex P.',
+        qa: 'Kevin Smith',
+        seal: 'Anthony Lee',
+        budget: 100,
+        deadlineName: '90% Submittal',
+        deadlineDate: '2026-05-20',
+        milestones: {
+          bodr: '2026-03-01',
+          id30: '2026-03-10',
+          ed30: '2026-03-12',
+          id60: '2026-03-25',
+          ed60: '2026-04-01',
+          id90: '-',
+          ed90: '-',
+          id100: '-',
+          ed100: '-',
+          bidReadyId: '-',
+          bidReadyEd: '-',
+          reportDraft: '-',
+          reportFinal: '-'
+        }}, 
+    {
+        id: 2,
+        status: 'ACTIVE MEDIUM',
+        name: 'White Plains Office Building',
+        notes: 'Coordinate with structural team on beam calcs, also checking for how notes look when they are longer and wrap onto multiple lines',
+        state: 'NY',
+        client: 'Nexus Development',
+        code: '365781265',
+        type: 'DESIGN',
+        trades: 'HVAC',
+        pm: 'Sarah Jenkins',
+        gec: 'YES',
+        lead: 'John Doe',
+        assist: 'Alex P.',
+        qa: 'Kevin Smith',
+        seal: 'Anthony Lee',
+        budget: 100,
+        deadlineName: '90% Submittal',
+        deadlineDate: '2026-05-20',
+        milestones: {
+          bodr: '2026-03-01',
+          id30: '2026-03-10',
+          ed30: '2026-03-12',
+          id60: '2026-03-25',
+          ed60: '2026-04-01',
+          id90: '-',
+          ed90: '-',
+          id100: '-',
+          ed100: '-',
+          bidReadyId: '-',
+          bidReadyEd: '-',
+          reportDraft: '-',
+          reportFinal: '-'
+        }}, 
+    {
+        id: 2,
+        status: 'ACTIVE MEDIUM',
+        name: 'White Plains Office Building',
+        notes: 'Coordinate with structural team on beam calcs, also checking for how notes look when they are longer and wrap onto multiple lines',
+        state: 'NY',
+        client: 'Nexus Development',
+        code: '365781265',
+        type: 'DESIGN',
+        trades: 'HVAC',
+        pm: 'Sarah Jenkins',
+        gec: 'YES',
+        lead: 'John Doe',
+        assist: 'Alex P.',
+        qa: 'Kevin Smith',
+        seal: 'Anthony Lee',
+        budget: 100,
+        deadlineName: '90% Submittal',
+        deadlineDate: '2026-05-20',
+        milestones: {
+          bodr: '2026-03-01',
+          id30: '2026-03-10',
+          ed30: '2026-03-12',
+          id60: '2026-03-25',
+          ed60: '2026-04-01',
+          id90: '-',
+          ed90: '-',
+          id100: '-',
+          ed100: '-',
+          bidReadyId: '-',
+          bidReadyEd: '-',
+          reportDraft: '-',
+          reportFinal: '-'
+        }}, 
+    {
+        id: 2,
+        status: 'ACTIVE MEDIUM',
+        name: 'White Plains Office Building',
+        notes: 'Coordinate with structural team on beam calcs, also checking for how notes look when they are longer and wrap onto multiple lines',
+        state: 'NY',
+        client: 'Nexus Development',
+        code: '365781265',
+        type: 'DESIGN',
+        trades: 'HVAC',
+        pm: 'Sarah Jenkins',
+        gec: 'YES',
+        lead: 'John Doe',
+        assist: 'Alex P.',
+        qa: 'Kevin Smith',
+        seal: 'Anthony Lee',
+        budget: 100,
+        deadlineName: '90% Submittal',
+        deadlineDate: '2026-05-20',
+        milestones: {
+          bodr: '2026-03-01',
+          id30: '2026-03-10',
+          ed30: '2026-03-12',
+          id60: '2026-03-25',
+          ed60: '2026-04-01',
+          id90: '-',
+          ed90: '-',
+          id100: '-',
+          ed100: '-',
+          bidReadyId: '-',
+          bidReadyEd: '-',
+          reportDraft: '-',
+          reportFinal: '-'
+        }}, 
+    {
+        id: 2,
+        status: 'ACTIVE MEDIUM',
+        name: 'White Plains Office Building',
+        notes: 'Coordinate with structural team on beam calcs, also checking for how notes look when they are longer and wrap onto multiple lines',
+        state: 'NY',
+        client: 'Nexus Development',
+        code: '365781265',
+        type: 'DESIGN',
+        trades: 'HVAC',
+        pm: 'Sarah Jenkins',
+        gec: 'YES',
+        lead: 'John Doe',
+        assist: 'Alex P.',
+        qa: 'Kevin Smith',
+        seal: 'Anthony Lee',
+        budget: 100,
+        deadlineName: '90% Submittal',
+        deadlineDate: '2026-05-20',
+        milestones: {
+          bodr: '2026-03-01',
+          id30: '2026-03-10',
+          ed30: '2026-03-12',
+          id60: '2026-03-25',
+          ed60: '2026-04-01',
+          id90: '-',
+          ed90: '-',
+          id100: '-',
+          ed100: '-',
+          bidReadyId: '-',
+          bidReadyEd: '-',
+          reportDraft: '-',
+          reportFinal: '-'
+        }}, 
+    {
+        id: 2,
+        status: 'ACTIVE MEDIUM',
+        name: 'White Plains Office Building',
+        notes: 'Coordinate with structural team on beam calcs, also checking for how notes look when they are longer and wrap onto multiple lines',
+        state: 'NY',
+        client: 'Nexus Development',
+        code: '365781265',
+        type: 'DESIGN',
+        trades: 'HVAC',
+        pm: 'Sarah Jenkins',
+        gec: 'YES',
+        lead: 'John Doe',
+        assist: 'Alex P.',
+        qa: 'Kevin Smith',
+        seal: 'Anthony Lee',
+        budget: 100,
+        deadlineName: '90% Submittal',
+        deadlineDate: '2026-05-20',
+        milestones: {
+          bodr: '2026-03-01',
+          id30: '2026-03-10',
+          ed30: '2026-03-12',
+          id60: '2026-03-25',
+          ed60: '2026-04-01',
+          id90: '-',
+          ed90: '-',
+          id100: '-',
+          ed100: '-',
+          bidReadyId: '-',
+          bidReadyEd: '-',
+          reportDraft: '-',
+          reportFinal: '-'
+        }}, 
+    {
+        id: 2,
+        status: 'ACTIVE MEDIUM',
+        name: 'White Plains Office Building',
+        notes: 'Coordinate with structural team on beam calcs, also checking for how notes look when they are longer and wrap onto multiple lines',
+        state: 'NY',
+        client: 'Nexus Development',
+        code: '365781265',
+        type: 'DESIGN',
+        trades: 'HVAC',
+        pm: 'Sarah Jenkins',
+        gec: 'YES',
+        lead: 'John Doe',
+        assist: 'Alex P.',
+        qa: 'Kevin Smith',
+        seal: 'Anthony Lee',
+        budget: 100,
+        deadlineName: '90% Submittal',
+        deadlineDate: '2026-05-20',
+        milestones: {
+          bodr: '2026-03-01',
+          id30: '2026-03-10',
+          ed30: '2026-03-12',
+          id60: '2026-03-25',
+          ed60: '2026-04-01',
+          id90: '-',
+          ed90: '-',
+          id100: '-',
+          ed100: '-',
+          bidReadyId: '-',
+          bidReadyEd: '-',
+          reportDraft: '-',
+          reportFinal: '-'
+        }}, 
+    {
+        id: 2,
+        status: 'ACTIVE MEDIUM',
+        name: 'White Plains Office Building',
+        notes: 'Coordinate with structural team on beam calcs, also checking for how notes look when they are longer and wrap onto multiple lines',
+        state: 'NY',
+        client: 'Nexus Development',
+        code: '365781265',
+        type: 'DESIGN',
+        trades: 'HVAC',
+        pm: 'Sarah Jenkins',
+        gec: 'YES',
+        lead: 'John Doe',
+        assist: 'Alex P.',
+        qa: 'Kevin Smith',
+        seal: 'Anthony Lee',
+        budget: 100,
+        deadlineName: '90% Submittal',
+        deadlineDate: '2026-05-20',
+        milestones: {
+          bodr: '2026-03-01',
+          id30: '2026-03-10',
+          ed30: '2026-03-12',
+          id60: '2026-03-25',
+          ed60: '2026-04-01',
+          id90: '-',
+          ed90: '-',
+          id100: '-',
+          ed100: '-',
+          bidReadyId: '-',
+          bidReadyEd: '-',
+          reportDraft: '-',
+          reportFinal: '-'
+        }}, 
+    {
+        id: 2,
+        status: 'ACTIVE MEDIUM',
+        name: 'White Plains Office Building',
+        notes: 'Coordinate with structural team on beam calcs, also checking for how notes look when they are longer and wrap onto multiple lines',
+        state: 'NY',
+        client: 'Nexus Development',
+        code: '365781265',
+        type: 'DESIGN',
+        trades: 'HVAC',
+        pm: 'Sarah Jenkins',
+        gec: 'YES',
+        lead: 'John Doe',
+        assist: 'Alex P.',
+        qa: 'Kevin Smith',
+        seal: 'Anthony Lee',
+        budget: 100,
+        deadlineName: '90% Submittal',
+        deadlineDate: '2026-05-20',
+        milestones: {
+          bodr: '2026-03-01',
+          id30: '2026-03-10',
+          ed30: '2026-03-12',
+          id60: '2026-03-25',
+          ed60: '2026-04-01',
+          id90: '-',
+          ed90: '-',
+          id100: '-',
+          ed100: '-',
+          bidReadyId: '-',
+          bidReadyEd: '-',
+          reportDraft: '-',
+          reportFinal: '-'
+        }}, 
+    {
+        id: 2,
+        status: 'ACTIVE MEDIUM',
+        name: 'White Plains Office Building',
+        notes: 'Coordinate with structural team on beam calcs, also checking for how notes look when they are longer and wrap onto multiple lines',
+        state: 'NY',
+        client: 'Nexus Development',
+        code: '365781265',
+        type: 'DESIGN',
+        trades: 'HVAC',
+        pm: 'Sarah Jenkins',
+        gec: 'YES',
+        lead: 'John Doe',
+        assist: 'Alex P.',
+        qa: 'Kevin Smith',
+        seal: 'Anthony Lee',
+        budget: 100,
+        deadlineName: '90% Submittal',
+        deadlineDate: '2026-05-20',
+        milestones: {
+          bodr: '2026-03-01',
+          id30: '2026-03-10',
+          ed30: '2026-03-12',
+          id60: '2026-03-25',
+          ed60: '2026-04-01',
+          id90: '-',
+          ed90: '-',
+          id100: '-',
+          ed100: '-',
+          bidReadyId: '-',
+          bidReadyEd: '-',
+          reportDraft: '-',
+          reportFinal: '-'
+        }}, 
+    {
+        id: 2,
+        status: 'ACTIVE MEDIUM',
+        name: 'White Plains Office Building',
+        notes: 'Coordinate with structural team on beam calcs, also checking for how notes look when they are longer and wrap onto multiple lines',
+        state: 'NY',
+        client: 'Nexus Development',
+        code: '365781265',
+        type: 'DESIGN',
+        trades: 'HVAC',
+        pm: 'Sarah Jenkins',
+        gec: 'YES',
+        lead: 'John Doe',
+        assist: 'Alex P.',
+        qa: 'Kevin Smith',
+        seal: 'Anthony Lee',
+        budget: 100,
+        deadlineName: '90% Submittal',
+        deadlineDate: '2026-05-20',
+        milestones: {
+          bodr: '2026-03-01',
+          id30: '2026-03-10',
+          ed30: '2026-03-12',
+          id60: '2026-03-25',
+          ed60: '2026-04-01',
+          id90: '-',
+          ed90: '-',
+          id100: '-',
+          ed100: '-',
+          bidReadyId: '-',
+          bidReadyEd: '-',
+          reportDraft: '-',
+          reportFinal: '-'
+        }}, 
+    {
+        id: 2,
+        status: 'ACTIVE MEDIUM',
+        name: 'White Plains Office Building',
+        notes: 'Coordinate with structural team on beam calcs, also checking for how notes look when they are longer and wrap onto multiple lines',
+        state: 'NY',
+        client: 'Nexus Development',
+        code: '365781265',
+        type: 'DESIGN',
+        trades: 'HVAC',
+        pm: 'Sarah Jenkins',
+        gec: 'YES',
+        lead: 'John Doe',
+        assist: 'Alex P.',
+        qa: 'Kevin Smith',
+        seal: 'Anthony Lee',
+        budget: 100,
+        deadlineName: '90% Submittal',
+        deadlineDate: '2026-05-20',
+        milestones: {
+          bodr: '2026-03-01',
+          id30: '2026-03-10',
+          ed30: '2026-03-12',
+          id60: '2026-03-25',
+          ed60: '2026-04-01',
+          id90: '-',
+          ed90: '-',
+          id100: '-',
+          ed100: '-',
+          bidReadyId: '-',
+          bidReadyEd: '-',
+          reportDraft: '-',
+          reportFinal: '-'
+        }}, 
+    {
+        id: 2,
+        status: 'ACTIVE MEDIUM',
+        name: 'White Plains Office Building',
+        notes: 'Coordinate with structural team on beam calcs, also checking for how notes look when they are longer and wrap onto multiple lines',
+        state: 'NY',
+        client: 'Nexus Development',
+        code: '365781265',
+        type: 'DESIGN',
+        trades: 'HVAC',
+        pm: 'Sarah Jenkins',
+        gec: 'YES',
+        lead: 'John Doe',
+        assist: 'Alex P.',
+        qa: 'Kevin Smith',
+        seal: 'Anthony Lee',
+        budget: 100,
+        deadlineName: '90% Submittal',
+        deadlineDate: '2026-05-20',
+        milestones: {
+          bodr: '2026-03-01',
+          id30: '2026-03-10',
+          ed30: '2026-03-12',
+          id60: '2026-03-25',
+          ed60: '2026-04-01',
+          id90: '-',
+          ed90: '-',
+          id100: '-',
+          ed100: '-',
+          bidReadyId: '-',
+          bidReadyEd: '-',
+          reportDraft: '-',
+          reportFinal: '-'
+        }}, 
+    {
+        id: 2,
+        status: 'ACTIVE MEDIUM',
+        name: 'White Plains Office Building',
+        notes: 'Coordinate with structural team on beam calcs, also checking for how notes look when they are longer and wrap onto multiple lines',
+        state: 'NY',
+        client: 'Nexus Development',
+        code: '365781265',
+        type: 'DESIGN',
+        trades: 'HVAC',
+        pm: 'Sarah Jenkins',
+        gec: 'YES',
+        lead: 'John Doe',
+        assist: 'Alex P.',
+        qa: 'Kevin Smith',
+        seal: 'Anthony Lee',
+        budget: 100,
+        deadlineName: '90% Submittal',
+        deadlineDate: '2026-05-20',
+        milestones: {
+          bodr: '2026-03-01',
+          id30: '2026-03-10',
+          ed30: '2026-03-12',
+          id60: '2026-03-25',
+          ed60: '2026-04-01',
+          id90: '-',
+          ed90: '-',
+          id100: '-',
+          ed100: '-',
+          bidReadyId: '-',
+          bidReadyEd: '-',
+          reportDraft: '-',
+          reportFinal: '-'
+        }}, 
+    {
+        id: 2,
+        status: 'ACTIVE MEDIUM',
+        name: 'White Plains Office Building',
+        notes: 'Coordinate with structural team on beam calcs, also checking for how notes look when they are longer and wrap onto multiple lines',
+        state: 'NY',
+        client: 'Nexus Development',
+        code: '365781265',
+        type: 'DESIGN',
+        trades: 'HVAC',
+        pm: 'Sarah Jenkins',
+        gec: 'YES',
+        lead: 'John Doe',
+        assist: 'Alex P.',
+        qa: 'Kevin Smith',
+        seal: 'Anthony Lee',
+        budget: 100,
+        deadlineName: '90% Submittal',
+        deadlineDate: '2026-05-20',
+        milestones: {
+          bodr: '2026-03-01',
+          id30: '2026-03-10',
+          ed30: '2026-03-12',
+          id60: '2026-03-25',
+          ed60: '2026-04-01',
+          id90: '-',
+          ed90: '-',
+          id100: '-',
+          ed100: '-',
+          bidReadyId: '-',
+          bidReadyEd: '-',
+          reportDraft: '-',
+          reportFinal: '-'
+        }}, 
+    {
+        id: 2,
+        status: 'ACTIVE MEDIUM',
+        name: 'White Plains Office Building',
+        notes: 'Coordinate with structural team on beam calcs, also checking for how notes look when they are longer and wrap onto multiple lines',
+        state: 'NY',
+        client: 'Nexus Development',
+        code: '365781265',
+        type: 'DESIGN',
+        trades: 'HVAC',
+        pm: 'Sarah Jenkins',
+        gec: 'YES',
+        lead: 'John Doe',
+        assist: 'Alex P.',
+        qa: 'Kevin Smith',
+        seal: 'Anthony Lee',
+        budget: 100,
+        deadlineName: '90% Submittal',
+        deadlineDate: '2026-05-20',
+        milestones: {
+          bodr: '2026-03-01',
+          id30: '2026-03-10',
+          ed30: '2026-03-12',
+          id60: '2026-03-25',
+          ed60: '2026-04-01',
+          id90: '-',
+          ed90: '-',
+          id100: '-',
+          ed100: '-',
+          bidReadyId: '-',
+          bidReadyEd: '-',
+          reportDraft: '-',
+          reportFinal: '-'
+        }}, 
+    {
+        id: 2,
+        status: 'ACTIVE MEDIUM',
+        name: 'White Plains Office Building',
+        notes: 'Coordinate with structural team on beam calcs, also checking for how notes look when they are longer and wrap onto multiple lines',
+        state: 'NY',
+        client: 'Nexus Development',
+        code: '365781265',
+        type: 'DESIGN',
+        trades: 'HVAC',
+        pm: 'Sarah Jenkins',
+        gec: 'YES',
+        lead: 'John Doe',
+        assist: 'Alex P.',
+        qa: 'Kevin Smith',
+        seal: 'Anthony Lee',
+        budget: 100,
+        deadlineName: '90% Submittal',
+        deadlineDate: '2026-05-20',
+        milestones: {
+          bodr: '2026-03-01',
+          id30: '2026-03-10',
+          ed30: '2026-03-12',
+          id60: '2026-03-25',
+          ed60: '2026-04-01',
+          id90: '-',
+          ed90: '-',
+          id100: '-',
+          ed100: '-',
+          bidReadyId: '-',
+          bidReadyEd: '-',
+          reportDraft: '-',
+          reportFinal: '-'
+        }}, 
+    {
+        id: 2,
+        status: 'ACTIVE MEDIUM',
+        name: 'White Plains Office Building',
+        notes: 'Coordinate with structural team on beam calcs, also checking for how notes look when they are longer and wrap onto multiple lines',
+        state: 'NY',
+        client: 'Nexus Development',
+        code: '365781265',
+        type: 'DESIGN',
+        trades: 'HVAC',
+        pm: 'Sarah Jenkins',
+        gec: 'YES',
+        lead: 'John Doe',
+        assist: 'Alex P.',
+        qa: 'Kevin Smith',
+        seal: 'Anthony Lee',
+        budget: 100,
+        deadlineName: '90% Submittal',
+        deadlineDate: '2026-05-20',
+        milestones: {
+          bodr: '2026-03-01',
+          id30: '2026-03-10',
+          ed30: '2026-03-12',
+          id60: '2026-03-25',
+          ed60: '2026-04-01',
+          id90: '-',
+          ed90: '-',
+          id100: '-',
+          ed100: '-',
+          bidReadyId: '-',
+          bidReadyEd: '-',
+          reportDraft: '-',
+          reportFinal: '-'
+        }}, 
+    {
+        id: 2,
+        status: 'ACTIVE MEDIUM',
+        name: 'White Plains Office Building',
+        notes: 'Coordinate with structural team on beam calcs, also checking for how notes look when they are longer and wrap onto multiple lines',
+        state: 'NY',
+        client: 'Nexus Development',
+        code: '365781265',
+        type: 'DESIGN',
+        trades: 'HVAC',
+        pm: 'Sarah Jenkins',
+        gec: 'YES',
+        lead: 'John Doe',
+        assist: 'Alex P.',
+        qa: 'Kevin Smith',
+        seal: 'Anthony Lee',
+        budget: 100,
+        deadlineName: '90% Submittal',
+        deadlineDate: '2026-05-20',
+        milestones: {
+          bodr: '2026-03-01',
+          id30: '2026-03-10',
+          ed30: '2026-03-12',
+          id60: '2026-03-25',
+          ed60: '2026-04-01',
+          id90: '-',
+          ed90: '-',
+          id100: '-',
+          ed100: '-',
+          bidReadyId: '-',
+          bidReadyEd: '-',
+          reportDraft: '-',
+          reportFinal: '-'
+        }}
 ]);
 
 const isNotesOpen = ref(false);
 const activeProject = ref(null);
 const notesBuffer = ref('');
 const editingRowId = ref(null);
-const milestoneHeaders = ['BODR', '30% ID', '30% ED', '60% ID', '60% ED', '90% ID', '90% ED', '100% ID', '100% ED', 'BID READY ID', 'BID READY ED', 'REPORT DRAFT', 'REPORT FINAL'];
 
 const openNotes = (project) => {
   activeProject.value = project;
@@ -74,31 +848,36 @@ const closeNotes = () => {
   notesBuffer.value = '';
 };
 
+// Change the colour of the status to match selected status
 const getStatusClass = (status) => {
   if (!status) return 'status-active-light';
   return 'status-' + status.toLowerCase().replace(/\s+/g, '-');
 };
 
-const getNextMilestone = (milestones, headers) => {
-  if (!milestones || !headers) return { name: '-', date: '-' };
+const getNextMilestone = (milestoneObj) => {
+  if (!milestoneObj || typeof milestoneObj !== 'object') {
+    return { name: '-', date: '-' };
+  }
 
   const today = new Date();
   
-  const validDates = milestones
-    .map((dateStr, index) => {
+  const validDates = Object.entries(milestoneObj)
+    .map(([key, dateStr]) => {
       if (dateStr === '-' || !dateStr) return null;
+      
+      const date = new Date(dateStr);
       return {
-        date: new Date(dateStr),
-        name: headers[index],
+        date,
+        name: MILESTONE_MAP[key] || key, 
         originalStr: dateStr
       };
     })
-    .filter(item => item !== null && !isNaN(item.date));
+    .filter(item => item !== null && !isNaN(item.date.getTime()));
 
   const futureDates = validDates.filter(item => item.date >= today);
 
   if (futureDates.length === 0) {
-    return { name: 'N/A', date: '-' };
+    return { name: '-', date: '-' };
   }
 
   futureDates.sort((a, b) => a.date - b.date);
@@ -145,19 +924,9 @@ const getNextMilestone = (milestones, headers) => {
           <th class="important-group">NEAREST DEADLINE NAME</th>
           <th class="important-group">NEAREST DEADLINE DATE</th>
 
-          <th>BODR</th>
-          <th>30% ID</th>
-          <th>30% ED</th>
-          <th>60% ID</th>
-          <th>60% ED</th>
-          <th>90% ID</th>
-          <th>90% ED</th>
-          <th>100% ID</th>
-          <th>100% ED</th>
-          <th>BID READY ID</th>
-          <th>BID READY ED</th>
-          <th>REPORT DRAFT</th>
-          <th>REPORT FINAL</th>
+          <th v-for="(label, key) in MILESTONE_MAP" :key="key">
+              {{ label }}
+          </th>
         </tr>
       </thead>
 
@@ -168,7 +937,7 @@ const getNextMilestone = (milestones, headers) => {
           :style="{ zIndex: 10000 - index }"
           :class="{ 'is-editing-row': editingRowId === project.id }"
         >
-            <td class="sticky-id">
+            <td class="sticky-id" style="cursor: initial;">
               {{ project.id }}
             </td>
 
@@ -187,7 +956,7 @@ const getNextMilestone = (milestones, headers) => {
               </template>
             </EditableCell>
             
-            <EditableCell v-model="project.name" :truncate="90" justify="left" class="sticky-name" />
+            <EditableCell v-model="project.name" :truncate="75" justify="left" class="sticky-name" />
 
             <td class="important-group summary__notes" 
                 :title="project.notes" 
@@ -247,16 +1016,16 @@ const getNextMilestone = (milestones, headers) => {
 
             <EditableCell v-model="project.budget" justify="center" :max="3" numeric/>
 
-            <td class="important-group" style="cursor: default;">
-              {{ getNextMilestone(project.milestones, milestoneHeaders).name }}
-            </td>
-            <td class="important-group" style="cursor: default;">
-              {{ getNextMilestone(project.milestones, milestoneHeaders).date }}
-            </td>
+            <td class="important-group" style="cursor: default;">{{ getNextMilestone(project.milestones).name }}</td>
+            <td class="important-group" style="cursor: default;">{{ getNextMilestone(project.milestones).date }}</td>
 
-            <td v-for="(date, index) in project.milestones" :key="index" :title="date">
-                {{ date }}
-            </td>
+            <EditableCell 
+              v-for="(label, key) in MILESTONE_MAP" 
+              :key="key"
+              v-model="project.milestones[key]"
+              type="date"
+              justify="center"
+            />
         </tr>
       </tbody>
     </table>
@@ -354,10 +1123,6 @@ const getNextMilestone = (milestones, headers) => {
   background-color: var(--tool-inner-container-color);
 }
 
-.sticky-name {
-  width: 30rem;
-}
-
 .sticky-id     { left: 0; }
 .sticky-status { left: 2rem; }
 .sticky-name   { left: 14rem; }
@@ -371,7 +1136,7 @@ thead th.sticky-name   { left: 14rem; }
 }
 
 thead th:is(.sticky-id, .sticky-status, .sticky-name) {
-  z-index: 50;
+  z-index: 99999;
   background-color: var(--tool-background-color) !important;
 }
 
@@ -393,6 +1158,7 @@ thead th:is(.sticky-id, .sticky-status, .sticky-name) {
 }
 
 .sticky-name {
+  width: 24rem;
   border-right: var(--tool-border) !important;
 }
 
@@ -426,14 +1192,13 @@ thead th:is(.sticky-id, .sticky-status, .sticky-name) {
     filter: brightness(0.8);
 }
 
-.status-active-light          { background-color: #5fa359; color: #000; }
-.status-active-medium         { background-color: #218018; color: #fff; }
-.status-active-heavy          { background-color: #0b5305; color: #fff; }
-.status-on-hold               { background-color: #a57e0b; color: #fff; }
-.status-in-construction       { background-color: #93549b; color: #fff; }
-.status-bidding               { background-color: #1c76ad; color: #000; }
-.status-completed             { background-color: #5a5a5a; }
-
+.status-active-light     { background-color: #3d523b; color: #a5d6a7; border: 1px solid #4caf5033; }
+.status-active-medium    { background-color: #2e473e; color: #80cbc4; border: 1px solid #26a69a33; }
+.status-active-heavy     { background-color: #1b3d21; color: #4ade80; border: 1px solid #22c55e44; }
+.status-on-hold          { background-color: #615437; color: #cab36d; }
+.status-in-construction  { background-color: #5b3f5e; color: #b18bb8; }
+.status-bidding          { background-color: #34526e; color: #86b1d4; }
+.status-completed        { background-color: #363636; color: #8a8989; }
 
 .notes-overlay {
   position: fixed;
@@ -441,7 +1206,7 @@ thead th:is(.sticky-id, .sticky-status, .sticky-name) {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.8); /* Dims the table */
+  background: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;

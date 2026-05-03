@@ -2,16 +2,9 @@
 import { ref } from 'vue';
 import ProjectTable from '../dashboardTools/ProjectTable.vue';
 import AddProject from './AddProject.vue';
+import { tabs } from '../data/constants';
 
-const tabs = ref([
-  'PROJECT SUMMARY', 
-  'UPCOMING 4 MONTH DEADLINES', 
-  'PROPOSALS', 
-  'COMPLETED PROJECTS'
-]);
-
-// Track the index of the active tab
-const activeTabIndex = ref(0); 
+const activeTabIndex = ref(0); // Default active tab -- set to dashboard (all tabs listed in constants.js)
 
 const setActive = (index) => {
   activeTabIndex.value = index;
@@ -45,7 +38,7 @@ const handleProjectAdded = (newProject) => {
         </div>
         <div class="summary__table">
             <ProjectTable v-if="activeTabIndex === 0" />
-            </div>
+        </div>
         <div class="summary__tabs">
             <button 
                 v-for="(tab, index) in tabs" 

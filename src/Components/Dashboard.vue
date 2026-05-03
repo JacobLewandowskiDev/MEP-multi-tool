@@ -12,7 +12,7 @@ import TeamOverview from './dashboardTools/TeamOverview.vue';
             <TeamOverview />
         </div>
         <!-- This will show the number of all projects, active projects, on hold projects, and a number of upcoming deadlines, upcoming employee PTO-->
-        <div class="dashboard__tool"><h3>Team List</h3>
+        <div class="dashboard__tool"><h3>My Team</h3>
             <div class="teamList__labels">
                 <span>Name</span>
                 <span>Workload</span>

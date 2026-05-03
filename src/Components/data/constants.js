@@ -54,6 +54,23 @@ export const usStates = [
   { name: 'Wyoming', abbreviation: 'WY' }
 ];
 
+// A list of all of the deadline names/types
+export const MILESTONE_MAP = {
+  bodr: "BODR",
+  id30: "30% ID",
+  ed30: "30% ED",
+  id60: "60% ID",
+  ed60: "60% ED",
+  id90: "90% ID",
+  ed90: "90% ED",
+  id100: "100% ID",
+  ed100: "100% ED",
+  bidReadyId: "BID READY ID",
+  bidReadyEd: "BID READY ED",
+  reportDraft: "REPORT DRAFT",
+  reportFinal: "REPORT FINAL"
+};
+
 // Project status options
 export const statusOptions = [
   { label: 'ACTIVE LIGHT', value: 'ACTIVE LIGHT' },
@@ -98,20 +115,28 @@ export const leadEngineers = [
   { name: 'Bob Johnson', email: 'bob.johnson@company.com' }
 ];
 
+// List of assisting engineers - This will be changed once the backend is implemented to pull info from the DB
 export const assistEngineers = [
   { name: 'John Doe', email: 'john.doe@company.com' },
   { name: 'Jane Smith', email: 'jane.smith@company.com' },
   { name: 'Bob Johnson', email: 'bob.johnson@company.com' }
 ];
 
+// Project Summary tabs
+export const tabs = [
+  'PROJECT SUMMARY', 
+  'UPCOMING 4 MONTH DEADLINES', 
+  'PROPOSALS', 
+  'COMPLETED PROJECTS'
+];
 
+// Limit visible characters to set limit
 export const truncateText = (text, limit) => {
   if (!text) return '-';
   return text.length > limit ? text.substring(0, limit) + '...' : text;
 };
 
-
-// Close Select when clicking outside
+// Cancel out changes when clicking outside the cell
 export const vClickOutside = {
   mounted(el, binding) {
     el.clickOutsideEvent = (event) => {
