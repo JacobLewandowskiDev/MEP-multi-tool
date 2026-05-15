@@ -1,6 +1,7 @@
 <script setup>
 import TeamList from './dashboardTools/TeamList.vue';
 import TeamOverview from './dashboardTools/TeamOverview.vue';
+import TeamPTO from './dashboardTools/TeamPTO.vue';
 
 </script>
 
@@ -12,7 +13,7 @@ import TeamOverview from './dashboardTools/TeamOverview.vue';
             <TeamOverview />
         </div>
         <!-- This will show the number of all projects, active projects, on hold projects, and a number of upcoming deadlines, upcoming employee PTO-->
-        <div class="dashboard__tool"><h3>My Team</h3>
+        <div class="dashboard__tool"><h3>Team Workload</h3>
             <div class="teamList__labels">
                 <span>Name</span>
                 <span>Workload</span>
@@ -20,7 +21,14 @@ import TeamOverview from './dashboardTools/TeamOverview.vue';
             <TeamList />
         </div> 
         <div class="dashboard__tool"><h3>Upcoming Deadlines</h3></div>
-        <div class="dashboard__tool"><h3>Placeholder</h3></div>
+        <div class="dashboard__tool">
+            <h3>Upcoming Employee PTO</h3>
+            <div class="teamList__labels">
+                <span>Name</span>
+                <span>PTO</span>
+            </div>
+            <TeamPTO />
+        </div>
     </div>
 </template>
 
@@ -52,6 +60,7 @@ import TeamOverview from './dashboardTools/TeamOverview.vue';
 
 .dashboard__tool h3 {
     color:var(--primary-color);
+    margin-bottom: .5rem;
 }
 
 .dashboard__tool--full {
